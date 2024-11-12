@@ -162,6 +162,55 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-42" value="Catalog" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="400" y="960" width="210" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-43" value="- books: Litst&amp;lt;Book&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="Dz-u38vsZauRtH_Nuqgc-42">
+          <mxGeometry y="26" width="210" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-44" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="Dz-u38vsZauRtH_Nuqgc-42">
+          <mxGeometry y="52" width="210" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-45" value="+ searchBookByTitle(Stirng title)&lt;div&gt;+ searchBookByAuthor(String author)&lt;/div&gt;&lt;div&gt;+ searchBookByISBN(String isbn)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="Dz-u38vsZauRtH_Nuqgc-42">
+          <mxGeometry y="60" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-47" value="NotificationService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="750" y="160" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-49" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="Dz-u38vsZauRtH_Nuqgc-47">
+          <mxGeometry y="26" width="210" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-50" value="+ notifyOverdue(Member, Book)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="Dz-u38vsZauRtH_Nuqgc-47">
+          <mxGeometry y="34" width="210" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-51" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.844;exitY=-0.029;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="630.0000000000001" y="246.44000000000005" as="sourcePoint" />
+            <mxPoint x="778.08" y="220" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="779.08" y="246.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-54" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1.025;exitY=0.097;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.667;entryY=0.923;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Dz-u38vsZauRtH_Nuqgc-15" target="Dz-u38vsZauRtH_Nuqgc-50">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="370" as="sourcePoint" />
+            <mxPoint x="860" y="230" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="889" y="415" />
+              <mxPoint x="889" y="218" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dz-u38vsZauRtH_Nuqgc-57" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.48;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" target="Dz-u38vsZauRtH_Nuqgc-33">
+          <mxGeometry x="-1" y="3" relative="1" as="geometry">
+            <mxPoint x="400" y="1056.02" as="sourcePoint" />
+            <mxPoint x="199" y="1039.998" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="199" y="1056" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
