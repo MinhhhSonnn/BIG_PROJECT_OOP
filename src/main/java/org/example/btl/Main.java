@@ -36,11 +36,6 @@ public class Main extends Application{
     stage.setTitle("UET Library Management");
     stage.setScene(scene);
     stage.show();
-    /*FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login.fxml"));
-    Scene scene = new Scene(fxmlLoader.load(), 780, 460);
-    stage.setTitle("UET Library Management");
-    stage.setScene(scene);
-    stage.show();*/
 
   }
 
