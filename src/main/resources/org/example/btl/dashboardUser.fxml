@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btl.Controllers.dashboardManagerController">
    <top>
       <HBox prefHeight="80.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
@@ -81,10 +81,10 @@
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/logo_users.png" />
+                              <Image url="@../images/logo_book2.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="20.0" prefWidth="118.0" text="Quản lý">
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Sách của tôi">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -102,29 +102,6 @@
                            </HBox.margin>
                            <image>
                               <Image url="@../images/logo_reader.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="20.0" prefWidth="118.0" text="Người mượn">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
-                     <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <image>
-                              <Image url="@../images/logo_book2.png" />
                            </image>
                         </ImageView>
                         <Label prefHeight="20.0" prefWidth="118.0" text="Kho sách">

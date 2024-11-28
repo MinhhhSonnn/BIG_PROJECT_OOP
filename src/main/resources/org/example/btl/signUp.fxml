@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -34,7 +33,7 @@
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="330.0">
                      <children>
-                        <TextField fx:id="usernameTextField" prefHeight="40.0" prefWidth="260.0" promptText="Email Address" style="-fx-background-radius: 55;">
+                        <TextField fx:id="emailTextField" prefHeight="40.0" prefWidth="260.0" promptText="Email Address" style="-fx-background-radius: 55;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -43,15 +42,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="330.0">
                      <children>
-                        <PasswordField fx:id="passwordPasswordField" prefHeight="40.0" prefWidth="260.0" promptText="Username" style="-fx-background-radius: 55;">
-                           <font>
-                              <Font size="14.0" />
-                           </font></PasswordField>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="330.0">
-                     <children>
-                        <TextField fx:id="usernameTextField1" prefHeight="40.0" prefWidth="260.0" promptText="Password" style="-fx-background-radius: 55;">
+                        <TextField fx:id="usernameTextField" prefHeight="40.0" prefWidth="260.0" promptText="Username" style="-fx-background-radius: 55;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -60,7 +51,16 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="330.0">
                      <children>
-                        <TextField fx:id="usernameTextField11" prefHeight="40.0" prefWidth="260.0" promptText="Confirm Password" style="-fx-background-radius: 55;">
+                        <TextField fx:id="passwordTextField" prefHeight="40.0" prefWidth="260.0" promptText="Password" style="-fx-background-radius: 55;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="330.0">
+                     <children>
+                        <TextField fx:id="confirmPasswordTextField" prefHeight="40.0" prefWidth="260.0" promptText="Confirm Password" style="-fx-background-radius: 55;">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -68,7 +68,7 @@
                      </children></HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="330.0">
                      <children>
-                        <Button fx:id="loginButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 55; -fx-background-color: #ed6637;" text="Sign Up" textFill="WHITE">
+                        <Button fx:id="signUpButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 55; -fx-background-color: #ed6637;" text="Sign Up" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
