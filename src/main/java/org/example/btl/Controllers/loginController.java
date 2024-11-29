@@ -114,10 +114,9 @@ public class loginController {
 
   public void signUpView(){
     try {
-      loginButton.getScene().getWindow().hide(); // tat scene login
-
+      //loginButton.getScene().getWindow().hide(); // tat scene login
+      Stage stage = (Stage) signUpViewButton.getScene().getWindow();
       Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/signUp.fxml"));
-      Stage stage = new Stage();
       Scene scene = new Scene(root);
       stage.setResizable(false); // tat nut maximine
       stage.setTitle("UET Library Management");
