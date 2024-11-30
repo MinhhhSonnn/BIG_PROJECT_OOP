@@ -138,6 +138,7 @@ public class loginController {
   }
   */
 
+
   public void signUpView(){
     try {
       //loginButton.getScene().getWindow().hide(); // tat scene login
