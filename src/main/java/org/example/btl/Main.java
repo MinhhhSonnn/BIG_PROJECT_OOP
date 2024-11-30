@@ -8,6 +8,8 @@ import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.stage.StageStyle;
 import javafx.scene.input.MouseEvent;
+import org.example.btl.api.GoogleBooksAPI;
+import org.example.btl.model.Book;
 
 public class Main extends Application{
 

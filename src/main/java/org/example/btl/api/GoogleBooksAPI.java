@@ -74,7 +74,8 @@ public class GoogleBooksAPI {
 
           // lay nam xuat ban
           String publicationYear = (String) volumeInfo.get("publishedYear");
-          return new Book(title, author, isbn, description, imageUrl, publicationYear);
+          Book book = new Book(title, author, isbn, description, imageUrl, publicationYear);
+          return book;
         }
       }
     } catch (Exception e) {

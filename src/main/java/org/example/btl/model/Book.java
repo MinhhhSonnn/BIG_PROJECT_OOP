@@ -5,7 +5,6 @@ public class Book {
   private String bookName;
   private String author;
   private String ISBN;
-  private String status;
   String description;
   private int quantity;
   String imageUrl;
@@ -15,7 +14,6 @@ public class Book {
     bookName = "";
     author = "";
     ISBN = "";
-    status = "";
     description = "";
     quantity = 0;
     imageUrl = null;
@@ -32,12 +30,11 @@ public class Book {
     this.publicationYear = publicationYear;
   }
 
-  public Book(int bookId, String bookName, String author, String ISBN, String status,
+  public Book(int bookId, String bookName, String author, String ISBN,
       int quantity, String description, String imageUrl, String publicationYear) {
     this.bookName = bookName;
     this.author = author;
     this.ISBN = ISBN;
-    this.status = status;
     this.quantity = quantity;
     this.description = description;
     this.imageUrl = imageUrl;
@@ -91,14 +88,6 @@ public class Book {
 
   public void setISBN(String ISBN) {
     this.ISBN = ISBN;
-  }
-
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
   }
 
   public int getQuantity() {
