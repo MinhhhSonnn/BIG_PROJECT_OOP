@@ -9,6 +9,7 @@ public class Book {
   private int quantity;
   String imageUrl;
   String publicationYear;
+  private String category;
 
   public Book() {
     bookName = "";
@@ -18,20 +19,22 @@ public class Book {
     quantity = 0;
     imageUrl = null;
     publicationYear = "";
+    category = "";
   }
 
   public Book(String bookName, String author, String ISBN, String description, String imageUrl,
-      String publicationYear) {
+      String publicationYear, String category) {
     this.bookName = bookName;
     this.author = author;
     this.ISBN = ISBN;
     this.description = description;
     this.imageUrl = imageUrl;
     this.publicationYear = publicationYear;
+    this.category = category;
   }
 
   public Book(int bookId, String bookName, String author, String ISBN,
-      int quantity, String description, String imageUrl, String publicationYear) {
+      int quantity, String description, String imageUrl, String publicationYear, String category) {
     this.bookName = bookName;
     this.author = author;
     this.ISBN = ISBN;
@@ -39,6 +42,14 @@ public class Book {
     this.description = description;
     this.imageUrl = imageUrl;
     this.publicationYear = publicationYear;
+    this.category = category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+  public String getCategory() {
+    return category;
   }
 
   public void setPublicationYear(String publicationYear) {

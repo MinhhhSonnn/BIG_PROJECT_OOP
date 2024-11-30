@@ -63,6 +63,7 @@ public class GoogleBooksAPI {
           String isbn = (String) item.get("id");
           String description = (String) volumeInfo.getOrDefault("description",
               "No description available");
+          String category = getCategory(volumeInfo);
           // lay anh bia sach
           String imageUrl = null;
           if (volumeInfo.containsKey("imageLinks")) {
@@ -74,7 +75,7 @@ public class GoogleBooksAPI {
 
           // lay nam xuat ban
           String publicationYear = (String) volumeInfo.get("publishedYear");
-          Book book = new Book(title, author, isbn, description, imageUrl, publicationYear);
+          Book book = new Book(title, author, isbn, description, imageUrl, publicationYear, category);
           return book;
         }
       }
@@ -91,5 +92,14 @@ public class GoogleBooksAPI {
       return authors.get(0).toString();
     }
     return "Unknown";
+  }
+
+  //lay the loai
+  private static String getCategory(JSONObject volumeInfo) {
+    JSONArray categories = (JSONArray) volumeInfo.get("categories");
+    if (categories != null && !categories.isEmpty()) {
+      return categories.get(0).toString();
+    }
+    return "No category available";
   }
 }
