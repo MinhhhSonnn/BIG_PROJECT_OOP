@@ -7,4 +7,5 @@ module org.example.btl {
 
   opens org.example.btl.Controllers to javafx.fxml;
     exports org.example.btl;
+  exports org.example.btl.api;
 }

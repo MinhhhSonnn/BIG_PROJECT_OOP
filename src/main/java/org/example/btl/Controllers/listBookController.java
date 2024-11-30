@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.example.btl.api.GoogleBooksAPI;
+import org.example.btl.model.Book;
 
 public class listBookController {
   @FXML
@@ -23,6 +25,13 @@ public class listBookController {
 
   @FXML
   private TextField searchTextField;
+  public void searchBook(){
+    String query = searchTextField.getText();
+    Book book = GoogleBooksAPI.getBookInfo(query);
+    if(book != null){
+
+    }
+  }
 
   public void dashboardManagerView(){
     try {

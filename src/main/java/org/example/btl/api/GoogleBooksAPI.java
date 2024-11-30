@@ -1,4 +1,4 @@
-package org.example.btl;
+package org.example.btl.api;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -30,7 +30,8 @@ public class GoogleBooksAPI {
       connection.setRequestMethod("GET");// get ve
       connection.setRequestProperty("Accept", "application/json");
 
-      try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+      try (BufferedReader in = new BufferedReader(
+          new InputStreamReader(connection.getInputStream()))) {
         StringBuilder response = new StringBuilder();
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
@@ -53,15 +54,27 @@ public class GoogleBooksAPI {
 
       if (items != null && !items.isEmpty()) {
         JSONObject item = (JSONObject) items.get(0);
-        JSONObject volumeInfo = (JSONObject) item.get("volumeInfo");//chua cac thong tin nhu tieu de, tg,...
+        JSONObject volumeInfo = (JSONObject) item.get(
+            "volumeInfo");//chua cac thong tin nhu tieu de, tg,...
 
         if (volumeInfo != null) {
           String title = (String) volumeInfo.get("title");
           String author = getAuthor(volumeInfo);
-          String isbn = (String) item.get("id"); // ISBN có thể lấy từ id nếu không có trong volumeInfo
-          String description = (String) volumeInfo.getOrDefault("description", "No description available");
+          String isbn = (String) item.get("id");
+          String description = (String) volumeInfo.getOrDefault("description",
+              "No description available");
+          // lay anh bia sach
+          String imageUrl = null;
+          if (volumeInfo.containsKey("imageLinks")) {
+            JSONObject imageLinks = (JSONObject) volumeInfo.get("imageLinks");
+            if (imageLinks.containsKey("thumbnail")) {
+              imageUrl = (String) imageLinks.get("thumbnail");  // Lay phien ban nho
+            }
+          }
 
-          return new Book(title, author, isbn, description);
+          // lay nam xuat ban
+          String publicationYear = (String) volumeInfo.get("publishedYear");
+          return new Book(title, author, isbn, description, imageUrl, publicationYear);
         }
       }
     } catch (Exception e) {
@@ -70,11 +83,11 @@ public class GoogleBooksAPI {
     return null;
   }
 
-  // Phương thức lấy tác giả, nếu không có trả về "Unknown"
+  // lay ten tac gia
   private static String getAuthor(JSONObject volumeInfo) {
     JSONArray authors = (JSONArray) volumeInfo.get("authors");
     if (authors != null && !authors.isEmpty()) {
-      return authors.get(0).toString(); // Lấy tác giả đầu tiên
+      return authors.get(0).toString();
     }
     return "Unknown";
   }
