@@ -25,13 +25,6 @@ public class listBookController {
 
   @FXML
   private TextField searchTextField;
-  public void searchBook(){
-    String query = searchTextField.getText();
-    Book book = GoogleBooksAPI.getBookInfo(query);
-    if(book != null){
-
-    }
-  }
 
   public void dashboardManagerView(){
     try {
