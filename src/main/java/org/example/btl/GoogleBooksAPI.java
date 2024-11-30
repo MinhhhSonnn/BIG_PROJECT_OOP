@@ -13,47 +13,69 @@ public class GoogleBooksAPI {
 
   private static final String API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 
-  // tra ve doi tuong chua thong tin sach
+  // Tra ve doi tuong chua thong tin sach
   public static Book getBookInfo(String query) {
-    try {
-      String urlString = API_URL + query;
-      URL url = new URL(urlString);
-      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-      connection.setRequestMethod("GET");
-      connection.setRequestProperty("Accept", "application/json");
-      BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-      String inputLine;
-      StringBuilder response = new StringBuilder();
-// luu toan bo phan hoi vao respone
-      while ((inputLine = in.readLine()) != null) {
-        response.append(inputLine);
-      }
-      in.close();
-      // tra ve 1 chuoi json
-      JSONParser parser = new JSONParser();
-      JSONObject jsonResponse = (JSONObject) parser.parse(response.toString());
-      if (jsonResponse.containsKey("items")) {
-        JSONArray items = (JSONArray) jsonResponse.get("items");
-        if (!items.isEmpty()) {
-          JSONObject item = (JSONObject) items.get(0);
-          if (item.containsKey("volumeInfo")) {
-            JSONObject volumeInfo = (JSONObject) item.get("volumeInfo");
-
-            // lay cac thong tin cua sach
-            String title = (String) volumeInfo.get("title");
-            String isbn = query;
-            String author = ((JSONArray) volumeInfo.get("authors")).get(0).toString();
-            return new Book(title, author, isbn);
-
-          }
-        }
-      }
-    } catch (Exception e) {
-
-      e.getMessage();
-
+    String response = getApiResponse(query);
+    if (response != null) {
+      return parseBookInfo(response);
     }
     return null;
   }
 
+
+  private static String getApiResponse(String query) {
+    try {
+      URL url = new URL(API_URL + query);
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestMethod("GET");// get ve
+      connection.setRequestProperty("Accept", "application/json");
+
+      try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+        StringBuilder response = new StringBuilder();
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+          response.append(inputLine);
+        }
+        return response.toString(); // lay ra chuoi json
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  // chuyen cai chuoi json thanh book
+  private static Book parseBookInfo(String jsonResponse) {
+    try {
+      JSONParser parser = new JSONParser();
+      JSONObject json = (JSONObject) parser.parse(jsonResponse);
+      JSONArray items = (JSONArray) json.get("items");// chua danh sach cac cuon sach
+
+      if (items != null && !items.isEmpty()) {
+        JSONObject item = (JSONObject) items.get(0);
+        JSONObject volumeInfo = (JSONObject) item.get("volumeInfo");//chua cac thong tin nhu tieu de, tg,...
+
+        if (volumeInfo != null) {
+          String title = (String) volumeInfo.get("title");
+          String author = getAuthor(volumeInfo);
+          String isbn = (String) item.get("id"); // ISBN có thể lấy từ id nếu không có trong volumeInfo
+          String description = (String) volumeInfo.getOrDefault("description", "No description available");
+
+          return new Book(title, author, isbn, description);
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  // Phương thức lấy tác giả, nếu không có trả về "Unknown"
+  private static String getAuthor(JSONObject volumeInfo) {
+    JSONArray authors = (JSONArray) volumeInfo.get("authors");
+    if (authors != null && !authors.isEmpty()) {
+      return authors.get(0).toString(); // Lấy tác giả đầu tiên
+    }
+    return "Unknown";
+  }
 }

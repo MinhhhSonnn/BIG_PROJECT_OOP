@@ -39,20 +39,31 @@ public class loginController {
   @FXML
   private TextField usernameTextField;
 
+  // tim admin
   private Connection connect;
-  private PreparedStatement prepare;
-  private ResultSet result;
+  private PreparedStatement prepareAdmin;
+  private ResultSet resultAdmin;
   private Statement statement;
 
+  // tim user
+  private PreparedStatement prepareUser;
+  private ResultSet resultUser;
+
   public void login(){
-    String sql = "SELECT * FROM users WHERE userName = ? AND password = ?";
+    String sqlAdmin = "SELECT * FROM account WHERE userName = ? AND password = ? AND accountType = 'admin'";
+    String sqlUser = "SELECT * FROM account WHERE userName = ? AND password = ? AND accountType = 'user'";
 
     connect = database.connectDB();
     try{
-      prepare = connect.prepareStatement(sql);
-      prepare.setString(1, usernameTextField.getText());
-      prepare.setString(2, passwordPasswordField.getText());
-      result = prepare.executeQuery();
+      prepareAdmin = connect.prepareStatement(sqlAdmin);
+      prepareAdmin.setString(1, usernameTextField.getText());
+      prepareAdmin.setString(2, passwordPasswordField.getText());
+      resultAdmin = prepareAdmin.executeQuery();
+
+      prepareUser = connect.prepareStatement(sqlUser);
+      prepareUser.setString(1, usernameTextField.getText());
+      prepareUser.setString(2, passwordPasswordField.getText());
+      resultUser = prepareUser.executeQuery();
 
       Alert alert;
 
@@ -65,7 +76,7 @@ public class loginController {
       }
       else {
         // kiem tra tk va mk
-        if (result.next()){
+        if (resultAdmin.next()){
           alert = new Alert(AlertType.INFORMATION);
           alert.setTitle("Admin Message");
           alert.setHeaderText(null);
@@ -76,6 +87,24 @@ public class loginController {
 
           Parent root = FXMLLoader.load(getClass().getResource(
               "/org/example/btl/dashboardManager.fxml"));
+          Stage stage = new Stage();
+          Scene scene = new Scene(root);
+          stage.setResizable(false); // tat nut maximine
+          stage.setTitle("UET Library Management");
+          stage.setScene(scene);
+          stage.show();
+        }
+        else if(resultUser.next()){
+          alert = new Alert(AlertType.INFORMATION);
+          alert.setTitle("Admin Message");
+          alert.setHeaderText(null);
+          alert.setContentText("Đăng nhập thành công");
+          alert.showAndWait();
+
+          loginButton.getScene().getWindow().hide(); // tat scene login
+
+          Parent root = FXMLLoader.load(getClass().getResource(
+              "/org/example/btl/dashboardUser.fxml"));
           Stage stage = new Stage();
           Scene scene = new Scene(root);
           stage.setResizable(false); // tat nut maximine
@@ -108,9 +137,6 @@ public class loginController {
     }
   }
   */
-  public void loginView(){
-
-  }
 
   public void signUpView(){
     try {

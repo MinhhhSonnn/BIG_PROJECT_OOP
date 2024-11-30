@@ -7,6 +7,7 @@ public class Book {
   private String author;
   private String ISBN;
   private String status;
+  String description;
   private int quantity;
 
   public Book() {
@@ -15,22 +16,32 @@ public class Book {
     author = "";
     ISBN = "";
     status = "";
+    description = "";
     quantity = 0;
   }
-  public Book(String bookName, String author, String ISBN) {
+  public Book(String bookName, String author, String ISBN, String description) {
     this.bookName = bookName;
     this.author = author;
     this.ISBN = ISBN;
+    this.description = description;
   }
 
   public Book(int bookId, String bookName, String author, String ISBN, String status,
-      int quantity) {
+      int quantity, String description) {
     this.bookId = bookId;
     this.bookName = bookName;
     this.author = author;
     this.ISBN = ISBN;
     this.status = status;
     this.quantity = quantity;
+    this.description = description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+  public String getDescription() {
+    return description;
   }
 
   public int getBookId() {
