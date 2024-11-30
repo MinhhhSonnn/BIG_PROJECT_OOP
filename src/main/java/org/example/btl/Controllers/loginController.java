@@ -1,6 +1,5 @@
 package org.example.btl.Controllers;
 
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -23,7 +21,6 @@ import org.example.btl.Database.database;
 
 
 public class loginController {
-
   @FXML
   private Label forgotPasswordLabel;
 
@@ -47,32 +44,32 @@ public class loginController {
   private ResultSet result;
   private Statement statement;
 
-  @FXML
-  public void login() {
+  public void login(){
     String sql = "SELECT * FROM users WHERE userName = ? AND password = ?";
 
     connect = database.connectDB();
+    try{
+      prepare = connect.prepareStatement(sql);
+      prepare.setString(1, usernameTextField.getText());
+      prepare.setString(2, passwordPasswordField.getText());
+      result = prepare.executeQuery();
 
-    try {
-      if (usernameTextField.getText().isEmpty() || passwordPasswordField.getText().isEmpty()) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Login Error");
+      Alert alert;
+
+      if (usernameTextField.getText().isEmpty() || passwordPasswordField.getText().isEmpty()){
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Admin Message");
         alert.setHeaderText(null);
-        alert.setContentText("You need to enter a username and password");
-
+        alert.setContentText("Hãy điền vào ô còn trống");
         alert.showAndWait();
-      } else {
-        prepare = connect.prepareStatement(sql);
-        prepare.setString(1, usernameTextField.getText());
-        prepare.setString(2, passwordPasswordField.getText());
-        result = prepare.executeQuery();
-
+      }
+      else {
         // kiem tra tk va mk
-        if (result.next()) {
-          Alert alert = new Alert(AlertType.INFORMATION);
+        if (result.next()){
+          alert = new Alert(AlertType.INFORMATION);
           alert.setTitle("Admin Message");
           alert.setHeaderText(null);
-          alert.setContentText("Login Successful");
+          alert.setContentText("Đăng nhập thành công");
           alert.showAndWait();
 
           loginButton.getScene().getWindow().hide(); // tat scene login
@@ -85,11 +82,12 @@ public class loginController {
           stage.setTitle("UET Library Management");
           stage.setScene(scene);
           stage.show();
-        } else {
-          Alert alert = new Alert(AlertType.ERROR);
+        }
+        else {
+          alert = new Alert(AlertType.ERROR);
           alert.setTitle("Admin Message");
           alert.setHeaderText(null);
-          alert.setContentText("Username or Password Incorrect");
+          alert.setContentText("Bạn nhập sai tài khoản hoặc mật khẩu");
           alert.showAndWait();
         }
       }
@@ -98,7 +96,6 @@ public class loginController {
       e.printStackTrace();
     }
   }
-
   /* chi cho nhap username la so
   public void numbersOnly(KeyEvent event){
     if (event.getCharacter().matches("[^\\e\t\r\\d+$]")){
@@ -111,11 +108,11 @@ public class loginController {
     }
   }
   */
-  public void loginView() {
+  public void loginView(){
 
   }
 
-  public void signUpView() {
+  public void signUpView(){
     try {
       //loginButton.getScene().getWindow().hide(); // tat scene login
       Stage stage = (Stage) signUpViewButton.getScene().getWindow();
@@ -130,5 +127,9 @@ public class loginController {
     }
   }
 
+  @FXML
+  public void initialize(URL url, ResourceBundle rb){
+
+  }
 
 }

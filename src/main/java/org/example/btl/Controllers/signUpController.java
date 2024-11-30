@@ -45,7 +45,7 @@ public class signUpController {
   private Statement statement;
 
   public void signUp(){
-    String sql = "INSERT INTO users (userName, password, email) SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM users WHERE userName = ? OR email = ?);";
+    String sql = "INSERT INTO account (userName, password, email) SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM account WHERE userName = ? OR email = ?);";
 
     connect = database.connectDB();
     try{
