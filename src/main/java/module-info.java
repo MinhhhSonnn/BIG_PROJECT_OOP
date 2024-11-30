@@ -3,7 +3,8 @@ module org.example.btl {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.sql;
+  requires json.simple;
 
-    opens org.example.btl.Controllers to javafx.fxml;
+  opens org.example.btl.Controllers to javafx.fxml;
     exports org.example.btl;
 }

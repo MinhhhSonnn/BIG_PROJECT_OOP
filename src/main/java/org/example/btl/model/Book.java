@@ -17,8 +17,14 @@ public class Book {
     status = "";
     quantity = 0;
   }
+  public Book(String bookName, String author, String ISBN) {
+    this.bookName = bookName;
+    this.author = author;
+    this.ISBN = ISBN;
+  }
 
-  public Book(int bookId, String bookName, String author, String ISBN, String status, int quantity) {
+  public Book(int bookId, String bookName, String author, String ISBN, String status,
+      int quantity) {
     this.bookId = bookId;
     this.bookName = bookName;
     this.author = author;
@@ -70,6 +76,7 @@ public class Book {
   public int getQuantity() {
     return quantity;
   }
+
   public void setQuantity(int quantity) {
     this.quantity = quantity;
   }

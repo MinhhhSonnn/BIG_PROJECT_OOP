@@ -7,8 +7,8 @@ public class Admin extends User {
   public Admin() {
     super();
   }
-  public Admin(String userName, String password, String name, String email, int age, BookService bookService){
-    super(userName, password, name, email, age);
+  public Admin(String userName, String password, String email, BookService bookService){
+    super(userName, password, email);
     this.bookService = bookService;
   }
   @Override
