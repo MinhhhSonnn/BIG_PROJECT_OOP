@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -19,6 +20,9 @@ public class listBookController {
 
   @FXML
   private HBox listUserButton;
+
+  @FXML
+  private TextField searchTextField;
 
   public void dashboardManagerView(){
     try {

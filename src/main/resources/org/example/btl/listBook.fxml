@@ -42,7 +42,7 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <TextField prefHeight="25.0" prefWidth="338.0" style="-fx-background-radius: 50;" />
+                        <TextField fx:id="searchTextField" prefHeight="25.0" prefWidth="338.0" style="-fx-background-radius: 50;" />
                      </children>
                   </HBox>
                   <Label text="Xin chào!">
