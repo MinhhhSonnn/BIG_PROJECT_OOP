@@ -7,23 +7,24 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class dashboardManagerController {
+public class listManagerController {
+
   @FXML
   private HBox addBookButton;
+
+  @FXML
+  private HBox dashboardManagerButton;
 
   @FXML
   private HBox listBookButton;
 
   @FXML
-  private HBox listManagerButton;
-
-  @FXML
   private HBox listUserButton;
 
-  public void listManagerView(){
+  public void dashboardManagerView(){
     try {
-      Stage stage = (Stage) listManagerButton.getScene().getWindow();
-      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/listManager.fxml"));
+      Stage stage = (Stage) dashboardManagerButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/dashboardManager.fxml"));
       Scene scene = new Scene(root);
       stage.setResizable(false); // tat nut maximine
       stage.setTitle("UET Library Management");

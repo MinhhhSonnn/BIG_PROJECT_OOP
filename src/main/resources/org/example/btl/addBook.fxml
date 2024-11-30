@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btl.Controllers.dashboardManagerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btl.Controllers.addBookController">
    <top>
       <HBox prefHeight="80.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
@@ -68,7 +68,7 @@
          <children>
             <VBox prefHeight="570.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
+                  <HBox fx:id="dashboardManagerButton" alignment="CENTER" onMouseClicked="#dashboardManagerView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -154,7 +154,7 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <HBox fx:id="addBookButton" alignment="CENTER" onMouseClicked="#addBookView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>

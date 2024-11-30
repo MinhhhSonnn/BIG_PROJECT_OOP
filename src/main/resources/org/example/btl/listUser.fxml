@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btl.Controllers.dashboardManagerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btl.Controllers.listUserController">
    <top>
       <HBox prefHeight="80.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
@@ -68,7 +70,7 @@
          <children>
             <VBox prefHeight="570.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
+                  <HBox fx:id="dashboardManagerButton" alignment="CENTER" onMouseClicked="#dashboardManagerView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -108,7 +110,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox fx:id="listUserButton" alignment="CENTER" onMouseClicked="#listUserView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -182,4 +184,15 @@
          </children>
       </VBox>
    </left>
+   <center>
+      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Email" />
+          <TableColumn prefWidth="75.0" text="Username" />
+            <TableColumn prefWidth="75.0" text="Password" />
+            <TableColumn prefWidth="135.0" text="Số sách mượn" />
+            <TableColumn prefWidth="135.0" text="Số lần vi phạm" />
+        </columns>
+      </TableView>
+   </center>
 </BorderPane>
