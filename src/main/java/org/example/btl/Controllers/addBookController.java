@@ -27,13 +27,28 @@ import org.example.btl.model.Book;
 public class addBookController {
 
   @FXML
+  private TextField ISBNNewTextField;
+
+  @FXML
   private TextField ISBNTextField;
 
   @FXML
   private Button addButton;
 
   @FXML
+  private TextField authorNewTextField;
+
+  @FXML
+  private TextField bookNameNewTextField;
+
+  @FXML
+  private TextField categoryNewTextField;
+
+  @FXML
   private HBox dashboardManagerButton;
+
+  @FXML
+  private TextField descriptionNewTextField;
 
   @FXML
   private HBox listBookButton;
@@ -45,7 +60,16 @@ public class addBookController {
   private HBox listUserButton;
 
   @FXML
+  private TextField publicationYearNewTextField;
+
+  @FXML
+  private TextField quantityNewTextField;
+
+  @FXML
   private TextField quantityTextField;
+
+  @FXML
+  private Button updateButton;
 
   private Connection connect;
   private PreparedStatement prepare;
@@ -112,7 +136,7 @@ public class addBookController {
       showAlert(AlertType.ERROR, "Hãy điền vào ô còn trống");
       return;
     }
-    else if(!isInteger(quantity) || Integer.parseInt(quantity) < 0 || Integer.parseInt(quantity) > 254) {
+    else if(!isInteger(quantity) || Integer.parseInt(quantity) < 0 || Integer.parseInt(quantity) > 2147483640) {
       showAlert(AlertType.ERROR, "Số lượng không hợp lệ");
       return;
     }
@@ -160,7 +184,7 @@ public class addBookController {
       prepare.setString(3, book.getCategory());
       prepare.setInt(4, quantity);
       prepare.setString(5, book.getPublicationYear());
-      prepare.setString(6, book.getISBN());
+      prepare.setString(6, ISBNTextField.getText());
       prepare.setString(7, book.getImageUrl());
       prepare.setString(8, book.getDescription());
       prepare.setString(9, book.getISBN());
@@ -184,6 +208,83 @@ public class addBookController {
   // Cleanup khi dong lai controller
   public void cleanup() {
     databaseExecutor.shutdown();
+  }
+
+  private PreparedStatement prepareFind;
+  private ResultSet resultFind;
+
+  private PreparedStatement prepareUpdate;
+  private ResultSet resultUpdate;
+
+  public void updateBook(){
+    Alert alert;
+    String sql = "SELECT * FROM books WHERE ISBN = ?";
+
+    connect = database.connectDB();
+    try {
+      prepareFind = connect.prepareStatement(sql);
+
+      prepareFind.setString(1, ISBNNewTextField.getText());
+      resultFind = prepareFind.executeQuery();
+      if (ISBNNewTextField.getText().isEmpty()){
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Admin Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Hãy nhập ISBN để thay đổi thông tin sách");
+        alert.showAndWait();
+      } else if (resultFind.next()) {
+        sql = "UPDATE books SET " +
+            "bookName = CASE WHEN ? != '' THEN ? ELSE bookName END, " +
+            "author = CASE WHEN ? != '' THEN ? ELSE author END, " +
+            "category = CASE WHEN ? != '' THEN ? ELSE category END, " +
+            "quantity = CASE WHEN ? != -1 THEN ? ELSE quantity END, " +
+            "publicationYear = CASE WHEN ? != '' THEN ? ELSE publicationYear END, " +
+            "description = CASE WHEN ? != '' THEN ? ELSE description END " +
+            "WHERE ISBN = ?";
+
+        try {
+          prepareUpdate = connect.prepareStatement(sql);
+
+          prepareUpdate.setString(1, bookNameNewTextField.getText());
+          prepareUpdate.setString(2, bookNameNewTextField.getText());
+          prepareUpdate.setString(3, authorNewTextField.getText());
+          prepareUpdate.setString(4, authorNewTextField.getText());
+          prepareUpdate.setString(5, categoryNewTextField.getText());
+          prepareUpdate.setString(6, categoryNewTextField.getText());
+          if (quantityNewTextField.getText().isEmpty()){
+            prepareUpdate.setInt(7, -1);
+            prepareUpdate.setInt(8, -1);
+          } else {
+            prepareUpdate.setInt(7, Integer.parseInt(quantityNewTextField.getText()));
+            prepareUpdate.setInt(8, Integer.parseInt(quantityNewTextField.getText()));
+          }
+          prepareUpdate.setString(9, publicationYearNewTextField.getText());
+          prepareUpdate.setString(10, publicationYearNewTextField.getText());
+          prepareUpdate.setString(11, descriptionNewTextField.getText());
+          prepareUpdate.setString(12, descriptionNewTextField.getText());
+          prepareUpdate.setString(13, ISBNNewTextField.getText());
+
+          prepareUpdate.executeUpdate();
+
+          alert = new Alert(AlertType.INFORMATION);
+          alert.setTitle("Admin Message");
+          alert.setHeaderText(null);
+          alert.setContentText("Cập nhật sách thành công");
+          alert.showAndWait();
+
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+      } else {
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Admin Message");
+        alert.setHeaderText(null);
+        alert.setContentText("ISBN không có trong thư viện");
+        alert.showAndWait();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
 

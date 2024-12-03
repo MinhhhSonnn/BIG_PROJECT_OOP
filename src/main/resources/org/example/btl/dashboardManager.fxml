@@ -151,7 +151,7 @@
                               <Image url="@../images/logo_addbook.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="20.0" prefWidth="118.0" text="Thêm sách">
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Quản lý sách">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
