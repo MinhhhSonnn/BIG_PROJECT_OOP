@@ -5,6 +5,7 @@ module org.example.btl {
     requires java.sql;
   requires json.simple;
 
+  opens org.example.btl.model to javafx.base;
   opens org.example.btl.Controllers to javafx.fxml;
     exports org.example.btl;
   exports org.example.btl.api;

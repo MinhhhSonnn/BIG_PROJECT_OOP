@@ -1,9 +1,15 @@
 package org.example.btl.Controllers;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +25,7 @@ import org.example.btl.api.GoogleBooksAPI;
 import org.example.btl.model.Book;
 
 public class addBookController {
+
   @FXML
   private TextField ISBNTextField;
 
@@ -45,62 +52,45 @@ public class addBookController {
   private ResultSet result;
   private Statement statement;
 
-  public void dashboardManagerView(){
+  @FXML
+  public void initialize() {
+    // Khởi tạo các sự kiện cho các nút
+    dashboardManagerButton.setOnMouseClicked(event -> dashboardManagerView());
+    listManagerButton.setOnMouseClicked(event -> listManagerView());
+    listUserButton.setOnMouseClicked(event -> listUserView());
+    listBookButton.setOnMouseClicked(event -> listBookView());
+  }
+
+  private void loadView(String fxmlPath) {
     try {
       Stage stage = (Stage) dashboardManagerButton.getScene().getWindow();
-      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/dashboardManager.fxml"));
+      Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
       Scene scene = new Scene(root);
-      stage.setResizable(false); // tat nut maximine
+      stage.setResizable(false);
       stage.setTitle("UET Library Management");
       stage.setScene(scene);
       stage.show();
-    } catch (Exception e) {
+    } catch (IOException e) {
       e.printStackTrace();
+      showAlert(AlertType.ERROR, "Không thể tải giao diện");
     }
   }
 
-  public void listManagerView(){
-    try {
-      Stage stage = (Stage) listManagerButton.getScene().getWindow();
-      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/listManager.fxml"));
-      Scene scene = new Scene(root);
-      stage.setResizable(false); // tat nut maximine
-      stage.setTitle("UET Library Management");
-      stage.setScene(scene);
-      stage.show();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  public void dashboardManagerView() {
+    loadView("/org/example/btl/dashboardManager.fxml");
   }
 
-  public void listUserView(){
-    try {
-      Stage stage = (Stage) listUserButton.getScene().getWindow();
-      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/listUser.fxml"));
-      Scene scene = new Scene(root);
-      stage.setResizable(false); // tat nut maximine
-      stage.setTitle("UET Library Management");
-      stage.setScene(scene);
-      stage.show();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  public void listManagerView() {
+    loadView("/org/example/btl/listManager.fxml");
   }
 
-  public void listBookView(){
-    try {
-      Stage stage = (Stage) listBookButton.getScene().getWindow();
-      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/listBook.fxml"));
-      Scene scene = new Scene(root);
-      stage.setResizable(false); // tat nut maximine
-      stage.setTitle("UET Library Management");
-      stage.setScene(scene);
-      stage.show();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  public void listUserView() {
+    loadView("/org/example/btl/listUser.fxml");
   }
 
+  public void listBookView() {
+    loadView("/org/example/btl/listBook.fxml");
+  }
   // kiem tra quantity co phai int hay k
   public static boolean isInteger(String str) {
     try {
@@ -111,70 +101,89 @@ public class addBookController {
     }
   }
 
-  public void addBook(){
-    Book book = GoogleBooksAPI.getBookInfo(ISBNTextField.getText());
-    Alert alert;
+  // tao luong de xu li lien quan den co so du lieu rieng biet
+  private final ExecutorService databaseExecutor = Executors.newSingleThreadExecutor();
 
-    if (ISBNTextField.getText().isEmpty() || quantityTextField.getText().isEmpty()){
-      alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Admin Message");
-      alert.setHeaderText(null);
-      alert.setContentText("Hãy điền vào ô còn trống");
-      alert.showAndWait();
+  public void addBook() {
+    String isbn = ISBNTextField.getText();
+    String quantity = quantityTextField.getText();
+
+    if (isbn.isEmpty() || quantity.isEmpty()) {
+      showAlert(AlertType.ERROR, "Hãy điền vào ô còn trống");
+      return;
     }
-    else if (book == null){
-      alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Admin Message");
-      alert.setHeaderText(null);
-      alert.setContentText("ISBN không hợp lệ");
-      alert.showAndWait();
+    else if(!isInteger(quantity) || Integer.parseInt(quantity) < 0 || Integer.parseInt(quantity) > 254) {
+      showAlert(AlertType.ERROR, "Số lượng không hợp lệ");
+      return;
     }
-    else if (!isInteger(quantityTextField.getText()) || Integer.parseInt(quantityTextField.getText()) > 254 || Integer.parseInt(quantityTextField.getText()) < 0){
-      System.out.println(Integer.parseInt(quantityTextField.getText()));
-      alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Admin Message");
-      alert.setHeaderText(null);
-      alert.setContentText("Số lượng không hợp lệ");
-      alert.showAndWait();
-    }
-    else {
-      String sql = "INSERT INTO books (bookName, author, category, quantity, publicationYear, ISBN, imageUrl, description) " +
-          "SELECT ?, ?, ?, ?, ?, ?, ?, ? " +
-          "WHERE NOT EXISTS (SELECT 1 FROM books WHERE ISBN = ?);";
 
-      connect = database.connectDB();
-      try {
-        prepare = connect.prepareStatement(sql);
-        prepare.setString(1, book.getBookName());
-        prepare.setString(2, book.getAuthor());
-        prepare.setString(3, book.getCategory());
-        prepare.setInt(4, Integer.parseInt(quantityTextField.getText()));
-        prepare.setString(5, book.getPublicationYear());
-        prepare.setString(6, book.getISBN());
-        prepare.setString(7, book.getImageUrl());
-        prepare.setString(8, book.getDescription());
-        prepare.setInt(9, Integer.parseInt(quantityTextField.getText()));
+    // Lay thong tin sach ma khong chan luong chinh
+    CompletableFuture.supplyAsync(() -> GoogleBooksAPI.getBookInfo(isbn))
+        .thenAcceptAsync(book -> {
+          if (book == null) {
+            Platform.runLater(() -> showAlert(AlertType.ERROR, "ISBN không hợp lệ"));
+            return;
+          }
 
-        int rowsAffected = prepare.executeUpdate();
+          // Them sach vao database trong thread rieng
+          CompletableFuture.runAsync(() -> {
+            try {
+              boolean success = insertBookToDatabase(book, Integer.parseInt(quantity));
+              Platform.runLater(() -> {
+                if (success) {
+                  showAlert(AlertType.INFORMATION, "Thêm sách thành công");
+                }
+                else{
+                  showAlert(AlertType.ERROR, "Sách đã tồn tại trong kho");
+                }
+              });
+            } catch (Exception e) {
+              Platform.runLater(
+                  () -> showAlert(AlertType.ERROR, "Lỗi khi thêm sách..."));
+            }
+          }, databaseExecutor);
+        });
+  }
 
-        if (rowsAffected > 0){
-          alert = new Alert(AlertType.INFORMATION);
-          alert.setTitle("Admin Message");
-          alert.setHeaderText(null);
-          alert.setContentText("Thêm sách thành công");
-          alert.showAndWait();
-        }
-        else {
-          alert = new Alert(AlertType.ERROR);
-          alert.setTitle("Admin Message");
-          alert.setHeaderText(null);
-          alert.setContentText("Sách đã tồn tại trong kho");
-          alert.showAndWait();
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+  private boolean insertBookToDatabase(Book book, int quantity) {
+    String sql =
+        "INSERT INTO books (bookName, author, category, quantity, publicationYear, ISBN, imageUrl, description) "
+            +
+            "SELECT ?, ?, ?, ?, ?, ?, ?, ? " +
+            "WHERE NOT EXISTS (SELECT 1 FROM books WHERE ISBN = ?);";
+
+    try (Connection connect = database.connectDB();
+        PreparedStatement prepare = connect.prepareStatement(sql)) {
+
+      prepare.setString(1, book.getBookName());
+      prepare.setString(2, book.getAuthor());
+      prepare.setString(3, book.getCategory());
+      prepare.setInt(4, quantity);
+      prepare.setString(5, book.getPublicationYear());
+      prepare.setString(6, book.getISBN());
+      prepare.setString(7, book.getImageUrl());
+      prepare.setString(8, book.getDescription());
+      prepare.setString(9, book.getISBN());
+
+      int rowsAffected = prepare.executeUpdate();
+
+      return rowsAffected > 0;
+    } catch (Exception e) {
+      throw new RuntimeException("Lỗi khi thêm sách vào database", e);
     }
   }
 
+  private void showAlert(AlertType type, String content) {
+    Alert alert = new Alert(type);
+    alert.setTitle("Admin Message");
+    alert.setHeaderText(null);
+    alert.setContentText(content);
+    alert.showAndWait();
+  }
+
+  // Cleanup khi dong lai controller
+  public void cleanup() {
+    databaseExecutor.shutdown();
+  }
 }
+

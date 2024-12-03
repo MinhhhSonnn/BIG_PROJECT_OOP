@@ -188,13 +188,14 @@
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <TableView prefHeight="1500.0" prefWidth="900.0">
+            <TableView fx:id="tableView" prefHeight="1500.0" prefWidth="900.0">
               <columns>
-                <TableColumn minWidth="250.0" prefWidth="75.0" text="Tên sách" />
-                <TableColumn minWidth="250.0" prefWidth="75.0" text="Tác giả" />
-                  <TableColumn minWidth="150.0" prefWidth="75.0" text="Thể loại" />
-                  <TableColumn minWidth="125.0" prefWidth="75.0" text="Số lượng hiện có" />
-                  <TableColumn minWidth="125.0" prefWidth="75.0" text="Năm xuất bản" />
+                <TableColumn fx:id="bookNameColumn" minWidth="200.0" prefWidth="75.0" text="Tên sách" />
+                <TableColumn fx:id="ISBNColumn" minWidth="200.0" prefWidth="75.0" text="Mã ISBN" />
+                  <TableColumn fx:id="authorColumn" minWidth="150.0" prefWidth="75.0" text="Tác giả" />
+                  <TableColumn fx:id="categoryColumn" minWidth="120.0" prefWidth="75.0" text="Thể loại" />
+                  <TableColumn fx:id="publicationYearColumn" minWidth="100.0" prefWidth="75.0" text="Năm xuất bản" />
+                  <TableColumn fx:id="quantityColumn" minWidth="120.0" prefWidth="75.0" text="Số lượng hiện có" />
               </columns>
             </TableView>
          </content>

@@ -49,7 +49,8 @@ public class GoogleBooksAPI {
     return results;
 
   }
-// method bat dong bo de lay thong tin sach
+
+  // method bat dong bo de lay thong tin sach
   public static CompletableFuture<Book> getBookInfoAsync(String query) {
     return CompletableFuture.supplyAsync(() -> getBookInfo(query), executorService);
   }
@@ -116,7 +117,8 @@ public class GoogleBooksAPI {
               imageUrl = (String) imageLinks.get("highRes");
             } else if (imageLinks.containsKey("thumbnail")) {
               imageUrl = (String) imageLinks.get("thumbnail");
-            }          }
+            }
+          }
 
           // lay nam xuat ban
           String publicationYear = (String) volumeInfo.get("publishedYear");
@@ -148,7 +150,8 @@ public class GoogleBooksAPI {
     }
     return "No category available";
   }
-// dong thread pool
+
+  // dong thread pool
   public static void shutdown() {
     executorService.shutdown();
     try {

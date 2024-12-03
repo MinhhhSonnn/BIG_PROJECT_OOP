@@ -44,11 +44,11 @@ public class signUpController {
   private ResultSet result;
   private Statement statement;
 
-  public void signUp(){
+  public void signUp() {
     String sql = "INSERT INTO account (userName, password, email) SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM account WHERE userName = ? OR email = ?);";
 
     connect = database.connectDB();
-    try{
+    try {
       prepare = connect.prepareStatement(sql);
       prepare.setString(1, usernameTextField.getText());
       prepare.setString(2, confirmPasswordTextField.getText());
@@ -59,14 +59,15 @@ public class signUpController {
 
       Alert alert;
 
-      if (emailTextField.getText().isEmpty() || usernameTextField.getText().isEmpty() || passwordTextField.getText().isEmpty() || confirmPasswordTextField.getText().isEmpty() || emailTextField.getText().isEmpty()){
+      if (emailTextField.getText().isEmpty() || usernameTextField.getText().isEmpty()
+          || passwordTextField.getText().isEmpty() || confirmPasswordTextField.getText().isEmpty()
+          || emailTextField.getText().isEmpty()) {
         alert = new Alert(AlertType.ERROR);
         alert.setTitle("Admin Message");
         alert.setHeaderText(null);
         alert.setContentText("Hãy điền vào ô còn trống");
         alert.showAndWait();
-      }
-      else if (rowsAffected > 0){
+      } else if (rowsAffected > 0) {
         alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Admin Message");
         alert.setHeaderText(null);
@@ -79,8 +80,7 @@ public class signUpController {
         Scene scene = new Scene(loginView);
         stage.setScene(scene);
         stage.show();
-      }
-      else {
+      } else {
         alert = new Alert(AlertType.ERROR);
         alert.setTitle("Admin Message");
         alert.setHeaderText(null);

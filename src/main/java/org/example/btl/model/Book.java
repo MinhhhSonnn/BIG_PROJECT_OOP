@@ -33,7 +33,7 @@ public class Book {
     this.category = category;
   }
 
-  public Book( String bookName, String author, String ISBN,
+  public Book(String bookName, String author, String ISBN,
       int quantity, String description, String imageUrl, String publicationYear, String category) {
     this.bookName = bookName;
     this.author = author;
@@ -48,6 +48,7 @@ public class Book {
   public void setCategory(String category) {
     this.category = category;
   }
+
   public String getCategory() {
     return category;
   }
