@@ -30,6 +30,9 @@ public class addBookController {
   private TextField ISBNNewTextField;
 
   @FXML
+  private TextField ISBNOldTextField;
+
+  @FXML
   private TextField ISBNTextField;
 
   @FXML
@@ -46,6 +49,9 @@ public class addBookController {
 
   @FXML
   private HBox dashboardManagerButton;
+
+  @FXML
+  private Button deleteButton;
 
   @FXML
   private TextField descriptionNewTextField;
@@ -286,5 +292,52 @@ public class addBookController {
       e.printStackTrace();
     }
   }
+
+  private PreparedStatement prepareDelete;
+  private ResultSet resultUDelete;
+
+  public void deleteBook(){
+    Alert alert;
+    String sql = "SELECT * FROM books WHERE ISBN = ?";
+
+    connect = database.connectDB();
+    try {
+      prepareFind = connect.prepareStatement(sql);
+      prepareFind.setString(1, ISBNOldTextField.getText());
+      resultFind = prepareFind.executeQuery();
+
+      if (ISBNOldTextField.getText().isEmpty()){
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Admin Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Hãy nhập ISBN để xoá thông tin sách");
+        alert.showAndWait();
+      } else if (resultFind.next()) {
+        sql = "DELETE FROM books WHERE ISBN = ?";
+        try {
+          prepareDelete = connect.prepareStatement(sql);
+          prepareDelete.setString(1, ISBNOldTextField.getText());
+          prepareDelete.executeUpdate();
+
+          alert = new Alert(AlertType.INFORMATION);
+          alert.setTitle("Admin Message");
+          alert.setHeaderText(null);
+          alert.setContentText("Xoá sách thành công");
+          alert.showAndWait();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      } else {
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Admin Message");
+        alert.setHeaderText(null);
+        alert.setContentText("ISBN không có trong thư viện");
+        alert.showAndWait();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
 }
 
