@@ -158,8 +158,38 @@ public class listBookController {
     tableView.setItems(books);
   }
 
+  public void selectBook(){
+    Book book = tableView.getSelectionModel().getSelectedItem();
+    int index = tableView.getSelectionModel().getFocusedIndex();
+    if (index < 0){
+      return;
+    }
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/btl/detailBook.fxml"));
+      Parent root = loader.load();
+
+      detailBookController controller = loader.getController();
+
+      controller.setBook(book);
+
+      Stage stage = (Stage) dashboardManagerButton.getScene().getWindow();
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // Tắt nút maximize
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   @FXML
   public void initialize(){
     showBook();
+    tableView.setOnMouseClicked(event -> {
+      if (event.getClickCount() == 1) {
+        selectBook();
+      }
+    });
   }
 }
