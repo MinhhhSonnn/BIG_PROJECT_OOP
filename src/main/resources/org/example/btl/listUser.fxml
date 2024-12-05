@@ -190,11 +190,11 @@
          <content>
             <TableView prefHeight="1500.0" prefWidth="900.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Email" />
-                <TableColumn prefWidth="75.0" text="Username" />
-                  <TableColumn prefWidth="75.0" text="Password" />
-                  <TableColumn prefWidth="129.0" text="Số sách mượn" />
-                  <TableColumn prefWidth="141.0" text="Số lần vi phạm" />
+                <TableColumn minWidth="250.0" prefWidth="75.0" text="Email" />
+                <TableColumn minWidth="200.0" prefWidth="75.0" text="Username" />
+                  <TableColumn minWidth="200.0" prefWidth="75.0" text="Password" />
+                  <TableColumn minWidth="125.0" prefWidth="129.0" text="Số sách mượn" />
+                  <TableColumn minWidth="125.0" prefWidth="141.0" text="Số lần bị phạt" />
               </columns>
             </TableView>
          </content>

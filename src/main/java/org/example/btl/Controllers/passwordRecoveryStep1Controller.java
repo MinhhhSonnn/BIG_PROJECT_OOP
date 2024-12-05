@@ -113,6 +113,7 @@ public class passwordRecoveryStep1Controller {
 
           passwordRecoveryStep2Controller controller = loader.getController();
           controller.setEmail(emailTextField.getText());
+          controller.setCode(passwordService.getResetCode());
 
           Stage stage = (Stage) loginViewButton.getScene().getWindow();
           Scene scene = new Scene(root);
