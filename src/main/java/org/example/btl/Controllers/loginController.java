@@ -153,6 +153,21 @@ public class loginController {
       e.printStackTrace();
     }
   }
+  @FXML
+  void forgotPassword(){
+    try {
+      //loginButton.getScene().getWindow().hide(); // tat scene login
+      Stage stage = (Stage) passwordPasswordField.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/pass.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
   @FXML
   public void initialize(URL url, ResourceBundle rb){

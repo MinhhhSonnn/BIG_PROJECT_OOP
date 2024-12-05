@@ -62,7 +62,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT">
                      <children>
-                        <Label fx:id="forgotPasswordLabel" text="Forgot Password?" textFill="WHITE" underline="true">
+                        <Label fx:id="forgotPasswordLabel" text="Forgot Password?" textFill="WHITE" underline="true" onMouseClicked="#forgotPassword">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
