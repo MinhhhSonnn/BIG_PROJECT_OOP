@@ -8,14 +8,14 @@ import org.example.btl.Database.database;
 import java.sql.*;
 
 public class PasswordService {
-
+  public static String resetCode;
   private static final int CODE_LENGTH = 6;
   public void sendExistingPassword(String email) {
     // check email ton tai trong he thong khong
     if (!isEmailExists(email)) {
       throw new RuntimeException("Email không tồn tại trong hệ thống!");
     }
-    String resetCode = generateResetCode();
+    resetCode = generateResetCode();
     EmailUtil.sendPasswordResetEmail(email, resetCode);
   }
 
