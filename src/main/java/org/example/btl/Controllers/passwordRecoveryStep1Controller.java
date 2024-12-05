@@ -101,6 +101,7 @@ public class passwordRecoveryStep1Controller {
 
           try {
             passwordService.sendExistingPassword(email);
+
             showAlert(AlertType.INFORMATION,  "Email khôi phục mật khẩu đã được gửi.");
 
           } catch (RuntimeException e) {
