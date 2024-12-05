@@ -8,7 +8,7 @@ import org.example.btl.Database.database;
 import java.sql.*;
 
 public class PasswordService {
-  public static String resetCode;
+  private String resetCode;
   private static final int CODE_LENGTH = 6;
   public void sendExistingPassword(String email) {
     // check email ton tai trong he thong khong
@@ -17,6 +17,9 @@ public class PasswordService {
     }
     resetCode = generateResetCode();
     EmailUtil.sendPasswordResetEmail(email, resetCode);
+  }
+  public String getResetCode() {
+    return resetCode;
   }
 
   private boolean isEmailExists(String email) {
