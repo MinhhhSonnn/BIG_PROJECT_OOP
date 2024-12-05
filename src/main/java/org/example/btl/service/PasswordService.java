@@ -1,25 +1,22 @@
 package org.example.btl.service;
 
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import javafx.event.ActionEvent;
 import org.example.btl.Controllers.EmailUtil;
 import org.example.btl.Database.database;
 import java.sql.*;
 
 public class PasswordService {
 
+  private static final int CODE_LENGTH = 6;
   public void sendExistingPassword(String email) {
-    // Kiểm tra xem email có tồn tại trong hệ thống không
+    // check email ton tai trong he thong khong
     if (!isEmailExists(email)) {
       throw new RuntimeException("Email không tồn tại trong hệ thống!");
     }
-
-    // Lấy mật khẩu hiện tại từ database
-    String currentPassword = getCurrentPasswordFromDatabase(email);
-
-    // Gửi email chứa mật khẩu hiện tại
-    EmailUtil.sendPasswordResetEmail(email, currentPassword);
+    String resetCode = generateResetCode();
+    EmailUtil.sendPasswordResetEmail(email, resetCode);
   }
 
   private boolean isEmailExists(String email) {
@@ -41,26 +38,12 @@ public class PasswordService {
     }
     return false;
   }
-
-  private String getCurrentPasswordFromDatabase(String email) {
-    String sql = "SELECT password FROM account WHERE email = ?";
-    try (Connection connect = database.connectDB();
-        PreparedStatement prepare = connect.prepareStatement(sql)) {
-      prepare.setString(1, email);
-
-      try (ResultSet rs = prepare.executeQuery()) {
-        if (rs.next()) {
-          return rs.getString("password");
-        } else {
-          throw new RuntimeException("Không tìm thấy thông tin người dùng");
-        }
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      throw new RuntimeException("Lỗi khi kiểm tra email");
-    }
-
+  private String generateResetCode() {
+    SecureRandom random = new SecureRandom();
+    int code = 100000 + random.nextInt(900000);
+    return String.valueOf(code);
   }
+
 
 
 }

@@ -35,8 +35,8 @@ public class EmailUtil {
       // Nội dung email
       String emailContent = String.format(
           "Xin chào,\n\n" +
-              "Đây là email mật khẩu của bạn từ Hệ thống Quản lý Thư viện.\n" +
-              "Mật khẩu của bạn là: %s\n\n" +
+              "Đây là mã khoi phuc của bạn từ Hệ thống Quản lý Thư viện.\n" +
+              "Ma của bạn là: %s\n\n" +
               "Trân trọng,\n" +
               "Hệ thống Quản lý Thư viện", newPassword);
 

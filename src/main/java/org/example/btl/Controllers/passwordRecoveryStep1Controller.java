@@ -1,5 +1,7 @@
 package org.example.btl.Controllers;
 
+import static org.example.btl.Alert.AlertUtil.showAlert;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.btl.Database.database;
+import org.example.btl.service.PasswordService;
 
 public class passwordRecoveryStep1Controller {
 
@@ -35,6 +38,10 @@ public class passwordRecoveryStep1Controller {
   private PreparedStatement prepare;
   private ResultSet result;
   private Statement statement;
+  private PasswordService passwordService;
+  public passwordRecoveryStep1Controller(){
+    passwordService = new PasswordService();
+  }
 
   public void signUpView() {
     try {
@@ -73,8 +80,8 @@ public class passwordRecoveryStep1Controller {
       result = prepare.executeQuery();
 
       Alert alert;
-
-      if (emailTextField.getText().isEmpty()){
+      String email = emailTextField.getText();
+      if (email.isEmpty()){
         alert = new Alert(AlertType.ERROR);
         alert.setTitle("Admin Message");
         alert.setHeaderText(null);
@@ -82,7 +89,23 @@ public class passwordRecoveryStep1Controller {
         alert.showAndWait();
       } else if (result.next()){
         try {
+          if (email.isEmpty()) {
+            showAlert(AlertType.ERROR,  "Email không được để trống.");
+            return;
+          }
 
+          if (!isValidEmail(email)) {
+            showAlert(AlertType.ERROR,  "Định dạng email không hợp lệ.");
+            return;
+          }
+
+          try {
+            passwordService.sendExistingPassword(email);
+            showAlert(AlertType.INFORMATION,  "Email khôi phục mật khẩu đã được gửi.");
+
+          } catch (RuntimeException e) {
+            showAlert(AlertType.ERROR,  e.getMessage());
+          }
 
           FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/btl/passwordRecoveryStep2.fxml"));
           Parent root = loader.load();
@@ -109,5 +132,10 @@ public class passwordRecoveryStep1Controller {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+  //kiem tra dinh dang email
+  private boolean isValidEmail(String email) {
+    String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    return email.matches(emailRegex);
   }
 }
