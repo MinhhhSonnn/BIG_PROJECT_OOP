@@ -2,35 +2,25 @@ package org.example.btl.model;
 
 public abstract class User {
 
-  private String name;
   private String userName;
   private String password;
   private String email;
 
-
   public User() {
-    name = "";
     userName = "";
     password = "";
     email = "";
 
   }
 
-  public User(String name, String userName, String password, String email) {
-    this.name = name;
+  public User( String userName, String password, String email) {
+
     this.userName = userName;
     this.password = password;
     this.email = email;
 
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public String getUserName() {
     return userName;
