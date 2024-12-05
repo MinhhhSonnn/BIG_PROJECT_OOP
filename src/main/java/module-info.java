@@ -4,6 +4,7 @@ module org.example.btl {
     requires javafx.graphics;
     requires java.sql;
   requires json.simple;
+  requires java.desktop;
 
   opens org.example.btl.model to javafx.base;
   opens org.example.btl.Controllers to javafx.fxml;

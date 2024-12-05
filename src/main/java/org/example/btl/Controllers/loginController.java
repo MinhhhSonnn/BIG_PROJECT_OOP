@@ -125,25 +125,26 @@ public class loginController {
       e.printStackTrace();
     }
   }
-  /* chi cho nhap username la so
-  public void numbersOnly(KeyEvent event){
-    if (event.getCharacter().matches("[^\\e\t\r\\d+$]")){
-      event.consume();
-
-      usernameTextField.setStyle("-fx-border-color:#e04040");
-    }
-    else {
-      usernameTextField.setStyle("-fx-border-color:#fff");
-    }
-  }
-  */
-
 
   public void signUpView(){
     try {
       //loginButton.getScene().getWindow().hide(); // tat scene login
       Stage stage = (Stage) signUpViewButton.getScene().getWindow();
       Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/signUp.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void forgotPassword(){
+    try {
+      Stage stage = (Stage) signUpViewButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/passwordRecoveryStep1.fxml"));
       Scene scene = new Scene(root);
       stage.setResizable(false); // tat nut maximine
       stage.setTitle("UET Library Management");
