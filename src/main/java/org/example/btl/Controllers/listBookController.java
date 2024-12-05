@@ -13,10 +13,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.example.btl.Database.database;
@@ -24,6 +27,9 @@ import org.example.btl.api.GoogleBooksAPI;
 import org.example.btl.model.Book;
 
 public class listBookController {
+  @FXML
+  private HBox listBookButton;
+
   @FXML
   private TableView<Book> tableView;
 
@@ -60,9 +66,12 @@ public class listBookController {
   @FXML
   private TextField searchTextField;
 
+  @FXML
+  private ImageView searchButton;
+
   private Connection connect;
-  private PreparedStatement prepare;
-  private ResultSet result;
+  private PreparedStatement prepareDefault;
+  private ResultSet resultDefault;
   private Statement statement;
 
   public void dashboardManagerView(){
@@ -107,6 +116,20 @@ public class listBookController {
     }
   }
 
+  public void listBookView(){
+    try {
+      Stage stage = (Stage) listBookButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/listBook.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   public void addBookView(){
     try {
       Stage stage = (Stage) addBookButton.getScene().getWindow();
@@ -121,7 +144,41 @@ public class listBookController {
     }
   }
 
-  public ObservableList<Book> listBook(){
+  private PreparedStatement prepareSearch2;
+  private ResultSet resultSearch2;
+
+  public ObservableList<Book> listBookSearch(){
+    ObservableList<Book> returnBook = FXCollections.observableArrayList();
+
+    String sql = "SELECT * "
+        + "FROM books "
+        + "WHERE bookName = ? "
+        + "   OR author = ? "
+        + "   OR category = ?;";
+
+    connect = database.connectDB();
+
+    try {
+      Book book;
+      prepareSearch2 = connect.prepareStatement(sql);
+      prepareSearch2.setString(1, searchTextField.getText());
+      prepareSearch2.setString(2, searchTextField.getText());
+      prepareSearch2.setString(3, searchTextField.getText());
+      resultSearch2 = prepareSearch2.executeQuery();
+      while (resultSearch2.next()){
+        book = new Book(resultSearch2.getString("bookName"), resultSearch2.getString("author"), resultSearch2.getString("ISBN"), resultSearch2.getInt("quantity"),
+            resultSearch2.getString("description"), resultSearch2.getString("imageUrl"), resultSearch2.getString("publicationYear"), resultSearch2.getString("category"));
+
+        returnBook.add(book);
+      }
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return returnBook;
+  }
+
+  public ObservableList<Book> listBookDefault(){
     ObservableList<Book> returnBook = FXCollections.observableArrayList();
 
     String sql = "SELECT * FROM books";
@@ -130,11 +187,11 @@ public class listBookController {
 
     try{
       Book book;
-      prepare = connect.prepareStatement(sql);
-      result = prepare.executeQuery();
-      while (result.next()){
-        book = new Book(result.getString("bookName"), result.getString("author"), result.getString("ISBN"), result.getInt("quantity"),
-            result.getString("description"), result.getString("imageUrl"), result.getString("publicationYear"), result.getString("category"));
+      prepareDefault = connect.prepareStatement(sql);
+      resultDefault = prepareDefault.executeQuery();
+      while (resultDefault.next()){
+        book = new Book(resultDefault.getString("bookName"), resultDefault.getString("author"), resultDefault.getString("ISBN"), resultDefault.getInt("quantity"),
+            resultDefault.getString("description"), resultDefault.getString("imageUrl"), resultDefault.getString("publicationYear"), resultDefault.getString("category"));
 
         returnBook.add(book);
       }
@@ -144,9 +201,18 @@ public class listBookController {
     return returnBook;
   }
 
+  boolean typeSearch = false;
+  /*
+  false la mac dinh
+  true la hien thi theo search
+  */
   ObservableList<Book> books;
   public void showBook(){
-    books = listBook();
+    if (typeSearch == false){
+      books = listBookDefault();
+    } else {
+      books = listBookSearch();
+    }
 
     bookNameColumn.setCellValueFactory(new PropertyValueFactory<>("bookName"));
     ISBNColumn.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
@@ -178,6 +244,46 @@ public class listBookController {
       stage.setTitle("UET Library Management");
       stage.setScene(scene);
       stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private PreparedStatement prepareSearch1;
+  private ResultSet resultSearch1;
+
+  public void search(){
+    String sql = "SELECT * "
+        + "FROM books "
+        + "WHERE bookName = ? "
+        + "   OR author = ? "
+        + "   OR category = ?;";
+
+    connect = database.connectDB();
+    try {
+      Alert alert;
+      prepareSearch1 = connect.prepareStatement(sql);
+      prepareSearch1.setString(1, searchTextField.getText());
+      prepareSearch1.setString(2, searchTextField.getText());
+      prepareSearch1.setString(3, searchTextField.getText());
+      resultSearch1 = prepareSearch1.executeQuery();
+
+      if(searchTextField.getText().isEmpty()){
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Admin Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Hãy nhập thông tin sách vào ô tìm kiếm");
+        alert.showAndWait();
+      } else if (resultSearch1.next()) {
+        typeSearch = true;
+        showBook();
+      } else {
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Admin Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Không tồn tại sách đang tìm");
+        alert.showAndWait();
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }

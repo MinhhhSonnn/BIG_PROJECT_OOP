@@ -34,7 +34,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="80.0" prefWidth="768.0">
                      <children>
-                        <ImageView fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="searchButton" fitHeight="23.0" fitWidth="24.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/logo_search.png" />
                            </image>
@@ -134,7 +134,7 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
+                  <HBox fx:id="listBookButton" alignment="CENTER" onMouseClicked="#listBookView" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
