@@ -224,7 +224,7 @@ public class addBookController {
         prepare.setString(6, ISBNTextField.getText());
         prepare.setString(7, book.getImageUrl());
         prepare.setString(8, book.getDescription());
-        prepare.setInt(9, Integer.parseInt(quantityTextField.getText()));
+        prepare.setString(9, book.getISBN());
 
         int rowsAffected = prepare.executeUpdate();
 
