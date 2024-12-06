@@ -69,6 +69,12 @@ public class listBookController {
   @FXML
   private ImageView searchButton;
 
+  @FXML
+  private HBox borrowHistoryButton;
+
+  @FXML
+  private HBox changeManagerButton;
+
   private Connection connect;
   private PreparedStatement prepareDefault;
   private ResultSet resultDefault;
@@ -134,6 +140,34 @@ public class listBookController {
     try {
       Stage stage = (Stage) addBookButton.getScene().getWindow();
       Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/addBook.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void changeManagerView(){
+    try {
+      Stage stage = (Stage) changeManagerButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/changeManager.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void borrowHistoryView() {
+    try {
+      Stage stage = (Stage) borrowHistoryButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/borrowHistory.fxml"));
       Scene scene = new Scene(root);
       stage.setResizable(false); // tat nut maximine
       stage.setTitle("UET Library Management");

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.example.btl.Alert.AlertUtil;
@@ -70,6 +71,12 @@ public class BookController {
   @FXML
   private Button updateButton;
 
+  @FXML
+  private HBox borrowHistoryButton;
+
+  @FXML
+  private HBox changeManagerButton;
+
   private BookService bookService;
 
   @FXML
@@ -100,6 +107,34 @@ public class BookController {
 
   public void listBookView() {
     loadView("/org/example/btl/listBook.fxml");
+  }
+
+  public void changeManagerView(){
+    try {
+      Stage stage = (Stage) changeManagerButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/changeManager.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void borrowHistoryView() {
+    try {
+      Stage stage = (Stage) borrowHistoryButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/borrowHistory.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   private void loadView(String fxmlPath) {
@@ -160,4 +195,5 @@ public class BookController {
   public void cleanup() {
     bookService.shutdown();
   }
+
 }

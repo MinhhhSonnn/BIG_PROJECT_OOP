@@ -180,6 +180,52 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
+                  <HBox fx:id="changeManagerButton" alignment="CENTER" layoutX="10.0" layoutY="190.0" onMouseClicked="#changeManagerView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_changeManager.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Quản lý NV">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="borrowHistoryButton" alignment="CENTER" layoutX="10.0" layoutY="310.0" onMouseClicked="#borrowHistoryView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_borrowHistory.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Lịch sử">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
                </children>
             </VBox>
          </children>

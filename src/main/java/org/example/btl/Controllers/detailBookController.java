@@ -52,6 +52,12 @@ public class detailBookController {
   @FXML
   private TextArea quantityTextArea;
 
+  @FXML
+  private HBox borrowHistoryButton;
+
+  @FXML
+  private HBox changeManagerButton;
+
   private Book book;
 
   public void dashboardManagerView(){
@@ -151,5 +157,33 @@ public class detailBookController {
 
     Image image = new Image(book.getImageUrl());
     imageBookImageView.setImage(image);
+  }
+
+  public void changeManagerView(){
+    try {
+      Stage stage = (Stage) changeManagerButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/changeManager.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void borrowHistoryView() {
+    try {
+      Stage stage = (Stage) borrowHistoryButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/borrowHistory.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

@@ -34,7 +34,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="80.0" prefWidth="768.0">
                      <children>
-                        <ImageView fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="searchButton" fitHeight="23.0" fitWidth="24.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/logo_search.png" />
                            </image>
@@ -42,7 +42,7 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <TextField prefHeight="25.0" prefWidth="338.0" style="-fx-background-radius: 50;" />
+                        <TextField fx:id="searchTextField" prefHeight="25.0" prefWidth="338.0" style="-fx-background-radius: 50;" />
                      </children>
                   </HBox>
                   <Label text="Xin chào!">
@@ -111,7 +111,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
+                  <HBox fx:id="listUserButton" alignment="CENTER" onMouseClicked="#listUserView" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -180,6 +180,52 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
+                  <HBox fx:id="changeManagerButton" alignment="CENTER" layoutX="10.0" layoutY="250.0" onMouseClicked="#changeManagerView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_changeManager.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Quản lý NV">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="borrowHistoryButton" alignment="CENTER" layoutX="10.0" layoutY="310.0" onMouseClicked="#borrowHistoryView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_borrowHistory.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Lịch sử">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
                </children>
             </VBox>
          </children>
@@ -188,13 +234,13 @@
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <TableView prefHeight="1500.0" prefWidth="900.0">
+            <TableView fx:id="tableView" prefHeight="1500.0" prefWidth="900.0">
               <columns>
-                <TableColumn minWidth="250.0" prefWidth="75.0" text="Email" />
-                <TableColumn minWidth="200.0" prefWidth="75.0" text="Username" />
-                  <TableColumn minWidth="200.0" prefWidth="75.0" text="Password" />
-                  <TableColumn minWidth="125.0" prefWidth="129.0" text="Số sách mượn" />
-                  <TableColumn minWidth="125.0" prefWidth="141.0" text="Số lần bị phạt" />
+                <TableColumn fx:id="emailColumn" minWidth="250.0" prefWidth="75.0" text="Email" />
+                <TableColumn fx:id="userNameColumn" minWidth="200.0" prefWidth="75.0" text="Username" />
+                  <TableColumn fx:id="passwordColumn" minWidth="200.0" prefWidth="75.0" text="Password" />
+                  <TableColumn fx:id="numberBorrowedBooksColumn" minWidth="125.0" prefWidth="129.0" text="Số sách mượn" />
+                  <TableColumn fx:id="numberViolations" minWidth="125.0" prefWidth="141.0" text="Số lần bị phạt" />
               </columns>
             </TableView>
          </content>

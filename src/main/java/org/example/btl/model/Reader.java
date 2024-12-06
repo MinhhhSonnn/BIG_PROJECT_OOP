@@ -23,4 +23,12 @@ public class Reader extends User{
   public void setNumberOfBooksBorrow(int numberOfBooksBorrow) {
     this.numberOfBooksBorrow = numberOfBooksBorrow;
   }
+
+  public int getNumberOfViolations() {
+    return numberOfViolations;
+  }
+
+  public void setNumberOfViolations(int numberOfViolations) {
+    this.numberOfViolations = numberOfViolations;
+  }
 }
