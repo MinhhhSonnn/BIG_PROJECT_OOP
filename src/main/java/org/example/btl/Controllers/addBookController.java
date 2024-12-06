@@ -221,7 +221,7 @@ public class addBookController {
         prepare.setString(3, book.getCategory());
         prepare.setInt(4, Integer.parseInt(quantityTextField.getText()));
         prepare.setString(5, book.getPublicationYear());
-        prepare.setString(6, book.getISBN());
+        prepare.setString(6, ISBNTextField.getText());
         prepare.setString(7, book.getImageUrl());
         prepare.setString(8, book.getDescription());
         prepare.setInt(9, Integer.parseInt(quantityTextField.getText()));
