@@ -1,15 +1,11 @@
 package org.example.btl.model;
 
-import org.example.btl.service.BookService;
-
 public class Admin extends User {
-  private BookService bookService;
   public Admin() {
     super();
   }
-  public Admin( String userName, String password, String email, BookService bookService){
+  public Admin( String userName, String password, String email){
     super( userName, password, email);
-    this.bookService = bookService;
   }
   @Override
   public String getRole() {
