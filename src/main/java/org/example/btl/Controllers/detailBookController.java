@@ -14,6 +14,9 @@ import org.example.btl.model.Book;
 
 public class detailBookController {
   @FXML
+  private HBox listBookButton;
+
+  @FXML
   private Button backButton;
 
   @FXML
@@ -58,8 +61,6 @@ public class detailBookController {
   @FXML
   private HBox changeManagerButton;
 
-  private Book book;
-
   public void dashboardManagerView(){
     try {
       Stage stage = (Stage) dashboardManagerButton.getScene().getWindow();
@@ -103,6 +104,20 @@ public class detailBookController {
     }
   }
 
+  public void listBookView(){
+    try {
+      Stage stage = (Stage) listBookButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/listBook.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   public void addBookView(){
     try {
       Stage stage = (Stage) addBookButton.getScene().getWindow();
@@ -115,48 +130,6 @@ public class detailBookController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  public void back(){
-    try {
-      Stage stage = (Stage) dashboardManagerButton.getScene().getWindow();
-      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/listBook.fxml"));
-      Scene scene = new Scene(root);
-      stage.setResizable(false); // tat nut maximine
-      stage.setTitle("UET Library Management");
-      stage.setScene(scene);
-      stage.show();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void setBook(Book book){
-    this.book = book;
-
-    ISBNTextArea.setText(book.getISBN());
-    ISBNTextArea.setEditable(false);
-
-    bookNameTextArea.setText(book.getBookName());
-    bookNameTextArea.setEditable(false);
-
-    authorTextArea.setText(book.getAuthor());
-    authorTextArea.setEditable(false);
-
-    categoryTextArea.setText(book.getCategory());
-    categoryTextArea.setEditable(false);
-
-    publicationYearTextArea.setText(book.getPublicationYear());
-    publicationYearTextArea.setEditable(false);
-
-    quantityTextArea.setText(""+ book.getQuantity());
-    quantityTextArea.setEditable(false);
-
-    descriptionTextArea.setText(book.getDescription());
-    descriptionTextArea.setEditable(false);
-
-    Image image = new Image(book.getImageUrl());
-    imageBookImageView.setImage(image);
   }
 
   public void changeManagerView(){
@@ -186,4 +159,32 @@ public class detailBookController {
       e.printStackTrace();
     }
   }
+
+  public void setBook(Book book){
+    ISBNTextArea.setText(book.getISBN());
+    ISBNTextArea.setEditable(false);
+
+    bookNameTextArea.setText(book.getBookName());
+    bookNameTextArea.setEditable(false);
+
+    authorTextArea.setText(book.getAuthor());
+    authorTextArea.setEditable(false);
+
+    categoryTextArea.setText(book.getCategory());
+    categoryTextArea.setEditable(false);
+
+    publicationYearTextArea.setText(book.getPublicationYear());
+    publicationYearTextArea.setEditable(false);
+
+    quantityTextArea.setText(""+ book.getQuantity());
+    quantityTextArea.setEditable(false);
+
+    descriptionTextArea.setText(book.getDescription());
+    descriptionTextArea.setEditable(false);
+
+    Image image = new Image(book.getImageUrl());
+    imageBookImageView.setImage(image);
+  }
+
+
 }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -203,4 +205,198 @@
          </children>
       </VBox>
    </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="900.0">
+               <children>
+                  <Label text="Xoá nhân viên">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="900.0">
+               <children>
+                  <TextField fx:id="IDDeleteTextField" prefHeight="40.0" prefWidth="280.0" promptText="Mã nhân viên">
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteEmployee" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 50; -fx-background-color: #D3D3D3;" text="Xoá">
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="900.0">
+               <children>
+                  <Label text="Thêm nhân viên">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="40.0" prefHeight="50.0" prefWidth="900.0">
+               <children>
+                  <TextField fx:id="employeeNameAddTextField" layoutX="25.0" layoutY="15.0" prefHeight="40.0" prefWidth="280.0" promptText="Họ và tên">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="sexAddTextField" layoutX="305.0" layoutY="15.0" prefHeight="40.0" prefWidth="280.0" promptText="Giới tính">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="170.0" prefHeight="50.0" prefWidth="900.0">
+               <children>
+                  <TextField fx:id="positionAddTextField" prefHeight="40.0" prefWidth="280.0" promptText="Chức vụ">
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="phoneAddTextField" layoutX="25.0" layoutY="15.0" prefHeight="40.0" prefWidth="280.0" promptText="SĐT">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="emailAddTextField" layoutX="305.0" layoutY="15.0" prefHeight="40.0" prefWidth="280.0" promptText="Email">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="90.0" prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addEmployee" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 50; -fx-background-color: #D3D3D3;" text="Thêm">
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="140.0" prefHeight="30.0" prefWidth="900.0">
+               <children>
+                  <Label text="Sửa thông tin nhân viên">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="170.0" prefHeight="50.0" prefWidth="900.0">
+               <children>
+                  <TextField fx:id="IDNewTextField" prefHeight="40.0" prefWidth="280.0" promptText="Mã nhân viên">
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="employeeNameNewTextField" layoutX="25.0" layoutY="15.0" prefHeight="40.0" prefWidth="280.0" promptText="Họ và tên">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="sexNewTextField" layoutX="305.0" layoutY="15.0" prefHeight="40.0" prefWidth="280.0" promptText="Giới tính">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="220.0" prefHeight="50.0" prefWidth="900.0">
+               <children>
+                  <TextField fx:id="positionNewTextField" prefHeight="40.0" prefWidth="280.0" promptText="Chức vụ">
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="phoneNewTextField" layoutX="25.0" layoutY="15.0" prefHeight="40.0" prefWidth="280.0" promptText="SĐT">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <TextField fx:id="emailNewTextField" layoutX="305.0" layoutY="15.0" prefHeight="40.0" prefWidth="280.0" promptText="Email">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="270.0" prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateEmployee" prefHeight="40.0" prefWidth="100.0" style="-fx-background-radius: 50; -fx-background-color: #D3D3D3;" text="Cập nhật">
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

@@ -182,8 +182,7 @@ public class listUserController {
         + "FROM account "
         + "WHERE userName = ? "
         + "   OR password = ? "
-        + "   OR email = ? "
-        + "   OR accountType = ?;";
+        + "   OR email = ?;";
 
     connect = database.connectDB();
 
@@ -193,7 +192,6 @@ public class listUserController {
       prepareSearch2.setString(1, searchTextField.getText());
       prepareSearch2.setString(2, searchTextField.getText());
       prepareSearch2.setString(3, searchTextField.getText());
-      prepareSearch2.setString(4, searchTextField.getText());
       resultSearch2 = prepareSearch2.executeQuery();
       while(resultSearch2.next()){
         reader = new Reader(resultSearch2.getString("userName"), resultSearch2.getString("password"), resultSearch2.getString("email"), resultSearch2.getInt("numberBorrowedBooks"), resultSearch2.getInt("numberViolations"));
@@ -209,7 +207,7 @@ public class listUserController {
   public ObservableList<Reader> listUserDefault(){
     ObservableList<Reader> returnReader = FXCollections.observableArrayList();
 
-    String sql = "SELECT * FROM account";
+    String sql = "SELECT * FROM account WHERE accountType = 'user'";
 
     connect = database.connectDB();
 
@@ -257,10 +255,12 @@ public class listUserController {
       return;
     }
     try {
+      if (reader == null) return;
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/btl/detailUser.fxml"));
       Parent root = loader.load();
 
-
+      detailUserController controller = loader.getController();
+      controller.setRecord(reader);
 
       Stage stage = (Stage) dashboardManagerButton.getScene().getWindow();
       Scene scene = new Scene(root);
