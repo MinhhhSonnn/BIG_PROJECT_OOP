@@ -1,9 +1,11 @@
 package org.example.btl.Controllers;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.example.btl.Database.database;
+import org.example.btl.informationUserName;
 import org.example.btl.model.Book;
 
 public class listBookUserController {
@@ -69,6 +72,12 @@ public class listBookUserController {
 
   @FXML
   private ImageView top3BookImageView;
+
+  @FXML
+  private TextField numberBorrowedBooksTextField;
+
+  @FXML
+  private TextField numberViolationsTextField;
 
   private Connection connect;
   private PreparedStatement prepareDefault;
@@ -376,10 +385,41 @@ public class listBookUserController {
     }
   }
 
+  public void showInformation(){
+    numberBorrowedBooksTextField.setText("" + informationUserName.numberBorrowedBooks);
+    numberBorrowedBooksTextField.setEditable(false);
+    numberViolationsTextField.setText("" + informationUserName.numberViolations);
+    numberViolationsTextField.setEditable(false);
+  }
+
+  private PreparedStatement prepareCheck;
+  private ResultSet resultCheck;
+
+  public void checkViolations(){
+    String sql = "SELECT COUNT(*) AS numberViolations " +
+        "FROM borrowedhistory " +
+        "WHERE userName = ? " +
+        "AND ((DATE_ADD(borrowDate, INTERVAL 1 MONTH) < ? AND returnDate IS NULL) OR returnDate > DATE_ADD(borrowDate, INTERVAL 1 MONTH)) ";
+
+    connect = database.connectDB();
+    try{
+      prepareCheck = connect.prepareStatement(sql);
+      prepareCheck.setString(1, informationUserName.userName);
+      prepareCheck.setDate(2, Date.valueOf(LocalDate.now()));
+      resultCheck = prepareCheck.executeQuery();
+      resultCheck.next();
+      informationUserName.numberViolations = resultCheck.getInt("numberViolations");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   @FXML
   public void initialize(){
     showTopBook();
     showBook();
+    showInformation();
+    checkViolations();
     tableView.setOnMouseClicked(event -> {
       if (event.getClickCount() == 1) {
         selectBook();

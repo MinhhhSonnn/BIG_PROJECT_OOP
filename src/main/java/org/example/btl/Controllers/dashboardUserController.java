@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.example.btl.informationUserName;
 
 public class dashboardUserController {
   @FXML
@@ -62,5 +63,14 @@ public class dashboardUserController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public void showName(){
+    userNameTextField.setText("" + informationUserName.userName);
+  }
+
+  @FXML
+  public void initialize(){
+    showName();
   }
 }

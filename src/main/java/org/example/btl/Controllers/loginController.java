@@ -18,6 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.btl.Database.database;
+import org.example.btl.informationUserName;
 
 
 public class loginController {
@@ -100,6 +101,10 @@ public class loginController {
           alert.setHeaderText(null);
           alert.setContentText("Đăng nhập thành công");
           alert.showAndWait();
+
+          informationUserName.userName = resultUser.getString("userName");
+          informationUserName.numberBorrowedBooks = resultUser.getInt("numberBorrowedBooks");
+          informationUserName.numberViolations = resultUser.getInt("numberViolations");
 
           loginButton.getScene().getWindow().hide(); // tat scene login
 

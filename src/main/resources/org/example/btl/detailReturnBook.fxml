@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btl.Controllers.myBookController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btl.Controllers.detailReturnBookController">
    <top>
       <HBox prefHeight="80.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
@@ -126,18 +125,82 @@
       </VBox>
    </left>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <content>
-            <TableView fx:id="tableView" prefHeight="1500.0" prefWidth="900.0">
-              <columns>
-                <TableColumn fx:id="bookNameColumn" minWidth="250.0" prefWidth="75.0" text="Tên sách" />
-                <TableColumn fx:id="ISBNColumn" minWidth="200.0" prefWidth="75.0" text="ISBN" />
-                  <TableColumn fx:id="userNameColumn" minWidth="200.0" prefWidth="75.0" text="Người mượn" />
-                  <TableColumn fx:id="borrowDateColumn" minWidth="125.0" prefWidth="75.0" text="Ngày mượn" />
-                  <TableColumn fx:id="returnDateColumn" minWidth="125.0" prefWidth="75.0" text="Ngày trả" />
-              </columns>
-            </TableView>
-         </content>
-      </ScrollPane>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0">
+               <children>
+                  <ImageView fx:id="imageBookImageView" fitHeight="250.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="returnBookButton" mnemonicParsing="false" onAction="#returnBook" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-background-color: #D3D3D3;" text="Trả sách">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="500.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Thông tin sách">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="50.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextArea fx:id="ISBNTextArea" prefHeight="50.0" prefWidth="230.0" />
+                        <TextArea fx:id="bookNameTextArea" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="230.0">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </TextArea>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="60.0" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="authorTextArea" prefHeight="50.0" prefWidth="230.0" />
+                        <TextArea fx:id="categoryTextArea" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="230.0">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </TextArea>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="120.0" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <TextArea fx:id="publicationYearTextArea" prefHeight="50.0" prefWidth="230.0" />
+                        <TextArea fx:id="quantityTextArea" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="230.0">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </TextArea>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="200.0" prefWidth="500.0">
+                     <children>
+                        <TextArea fx:id="descriptionTextArea" prefHeight="205.0" prefWidth="480.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </center>
 </BorderPane>
