@@ -1,5 +1,6 @@
 package org.example.btl.Controllers;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -176,6 +177,9 @@ public class addBookController {
     }
   }
 
+  private PreparedStatement prepareAddQR;
+  private ResultSet resultAddQR;
+
   public void addBook(){
     Book book = GoogleBooksAPI.getBookInfo(ISBNTextField.getText());
     Alert alert;
@@ -240,6 +244,14 @@ public class addBookController {
             alert.setContentText("Thêm sách thành công");
             alert.showAndWait();
           }
+
+          book.generateQRCode(ISBNTextField.getText() + ".png");
+
+          sql = "INSERT INTO qr (ISBN, linkQR) VALUES (?, ?)";
+          prepareAddQR = connect.prepareStatement(sql);
+          prepareAddQR.setString(1, ISBNTextField.getText());
+          prepareAddQR.setString(2, "D:\\subject\\oop\\BTL\\QrCodePNG\\" + ISBNTextField.getText() + ".png");
+          prepareAddQR.executeUpdate();
         }
       } catch (Exception e) {
         e.printStackTrace();
@@ -332,8 +344,14 @@ public class addBookController {
     }
   }
 
-  private PreparedStatement prepareDelete;
-  private ResultSet resultUDelete;
+  private PreparedStatement prepareDelete1;
+  private ResultSet resultUDelete1;
+
+  private PreparedStatement prepareDelete2;
+  private ResultSet resultUDelete2;
+
+  private PreparedStatement prepareDelete3;
+  private ResultSet resultUDelete3;
 
   public void deleteBook(){
     Alert alert;
@@ -354,9 +372,9 @@ public class addBookController {
       } else if (resultFind.next()) {
         sql = "DELETE FROM books WHERE ISBN = ?";
         try {
-          prepareDelete = connect.prepareStatement(sql);
-          prepareDelete.setString(1, ISBNOldTextField.getText());
-          prepareDelete.executeUpdate();
+          prepareDelete1 = connect.prepareStatement(sql);
+          prepareDelete1.setString(1, ISBNOldTextField.getText());
+          prepareDelete1.executeUpdate();
 
           alert = new Alert(AlertType.INFORMATION);
           alert.setTitle("Admin Message");
@@ -366,6 +384,28 @@ public class addBookController {
         } catch (Exception e) {
           e.printStackTrace();
         }
+
+        sql = "DELETE FROM borrowedhistory WHERE ISBN = ?";
+        try {
+          prepareDelete2 = connect.prepareStatement(sql);
+          prepareDelete2.setString(1, ISBNOldTextField.getText());
+          prepareDelete2.executeUpdate();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+
+        sql = "DELETE FROM qr WHERE ISBN = ?";
+        try {
+          prepareDelete3 = connect.prepareStatement(sql);
+          prepareDelete3.setString(1, ISBNOldTextField.getText());
+          prepareDelete3.executeUpdate();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+
+        File file = new File("D:\\subject\\oop\\BTL\\QrCodePNG\\" + ISBNOldTextField.getText() + ".png");
+        file.delete();
+
       } else {
         alert = new Alert(AlertType.ERROR);
         alert.setTitle("Admin Message");
