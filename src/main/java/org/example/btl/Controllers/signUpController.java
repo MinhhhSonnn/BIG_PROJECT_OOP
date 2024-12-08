@@ -59,6 +59,15 @@ public class signUpController {
 
 
   public void signUp() {
+    Alert alert;
+    if (!passwordTextField.getText().equals(confirmPasswordTextField.getText())){
+      alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Admin Message");
+      alert.setHeaderText(null);
+      alert.setContentText("Mật khẩu không giống nhau vui lòng nhập lại");
+      alert.showAndWait();
+      return;
+    }
     String sql = "INSERT INTO account (userName, password, email, numberBorrowedBooks, numberViolations) SELECT ?, ?, ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM account WHERE userName = ? OR email = ?);";
 
     connect = database.connectDB();
@@ -72,8 +81,6 @@ public class signUpController {
       prepare.setString(6, usernameTextField.getText());
       prepare.setString(7, emailTextField.getText());
       int rowsAffected = prepare.executeUpdate();
-
-      Alert alert;
 
       if (emailTextField.getText().isEmpty() || usernameTextField.getText().isEmpty()
           || passwordTextField.getText().isEmpty() || confirmPasswordTextField.getText().isEmpty()

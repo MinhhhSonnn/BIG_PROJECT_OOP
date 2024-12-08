@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -92,7 +93,31 @@ public class detailReturnBookController {
   }
 
   public void setData(Book book, BorrowingRecord record){
+    ISBNTextArea.setText(book.getISBN());
+    ISBNTextArea.setEditable(false);
 
+    bookNameTextArea.setText(book.getBookName());
+    bookNameTextArea.setEditable(false);
+
+    authorTextArea.setText(book.getAuthor());
+    authorTextArea.setEditable(false);
+
+    categoryTextArea.setText(book.getCategory());
+    categoryTextArea.setEditable(false);
+
+    publicationYearTextArea.setText(book.getPublicationYear());
+    publicationYearTextArea.setEditable(false);
+
+    quantityTextArea.setText(""+ book.getQuantity());
+    quantityTextArea.setEditable(false);
+
+    descriptionTextArea.setText(book.getDescription());
+    descriptionTextArea.setEditable(false);
+
+    Image image = new Image(book.getImageUrl());
+    imageBookImageView.setImage(image);
+
+    //this.book = book;
   }
 
   public void returnBook(){
