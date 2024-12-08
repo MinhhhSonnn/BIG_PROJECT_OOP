@@ -23,12 +23,12 @@ public class GoogleBooksAPI {
   // tạo ra mot thread pool voi 5 luong
   private static final ExecutorService executorService = Executors.newFixedThreadPool(5);
 
-
+// nhâận mot danh sach truy van và trả ve mot danh sach sach tuong ung
   public static List<Book> getBooksInfoConcurrently(List<String> queries) {
     List<Future<Book>> futures = new ArrayList<>();// dung de lu cac doi tuong bat dong bo
     List<Book> results = new ArrayList<>();
 
-    // Submit cac task vao thread pool
+    // goi phuong thuc getBookInfo trong mot luong mới và lưu vào đối tượng future
     for (String query : queries) {
       Future<Book> future = executorService.submit(() -> getBookInfo(query));
       futures.add(future);
@@ -50,7 +50,7 @@ public class GoogleBooksAPI {
 
   }
 
-  // method bat dong bo de lay thong tin sach
+  // method bat dong bo de lay thong tin sach, cho phép lấy sách mà không chặn luồng chính
   public static CompletableFuture<Book> getBookInfoAsync(String query) {
     return CompletableFuture.supplyAsync(() -> getBookInfo(query), executorService);
   }
@@ -68,20 +68,22 @@ public class GoogleBooksAPI {
 
   private static String getApiResponse(String query) {
     try {
-      String encodedQuery = java.net.URLEncoder.encode(query, "UTF-8");
+      String encodedQuery = java.net.URLEncoder.encode(query, "UTF-8"); // de dam bảo các đối tuượng có kí tu đặc biệt được xử lí đuúng
       URL url = new URL(API_URL + encodedQuery);
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-      connection.setRequestMethod("GET");// get ve
+      // yeu cau phương thức get và dinh dạng json
+      connection.setRequestMethod("GET");
       connection.setRequestProperty("Accept", "application/json");
 
       try (BufferedReader in = new BufferedReader(
           new InputStreamReader(connection.getInputStream()))) {
         StringBuilder response = new StringBuilder();
         String inputLine;
+        // dùng vòng lặp để đọc hết từng dòng
         while ((inputLine = in.readLine()) != null) {
           response.append(inputLine);
         }
-        return response.toString(); // lay ra chuoi json
+        return response.toString(); // lay ra chuoi json mà api trả về
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -93,7 +95,7 @@ public class GoogleBooksAPI {
   private static Book parseBookInfo(String jsonResponse) {
     try {
       JSONParser parser = new JSONParser();
-      JSONObject json = (JSONObject) parser.parse(jsonResponse);
+      JSONObject json = (JSONObject) parser.parse(jsonResponse); // phân tích chuỗi json va trả về một đối tượng json
       JSONArray items = (JSONArray) json.get("items");// chua danh sach cac cuon sach
 
       if (items != null && !items.isEmpty()) {

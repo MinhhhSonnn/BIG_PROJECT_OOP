@@ -34,14 +34,14 @@ public class Main extends Application {
       StackPane introLayout = new StackPane();
 
       // 3.tai vid
-      String videoPath = "src/main/resources/org/example/images/intro.mp4";
+      String videoPath = "src/main/resources/org/example/images/introo.mp4";
       Media media = new Media(new File(videoPath).toURI().toString());
       MediaPlayer mediaPlayer = new MediaPlayer(media);
       MediaView mediaView = new MediaView(mediaPlayer);
 
       // kich thuoc vid
       mediaView.setFitWidth(780);
-      mediaView.setFitHeight(460);
+      mediaView.setFitHeight(450);
 
       introLayout.getChildren().add(mediaView);
 

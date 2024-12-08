@@ -44,6 +44,20 @@ public class signUpController {
   private ResultSet result;
   private Statement statement;
 
+  public void setUsername(String username) {
+    usernameTextField.setText(username);
+  }
+  public void setPassword(String password) {
+    passwordTextField.setText(password);
+  }
+  public void setConfirmPassword(String confirmPassword) {
+    confirmPasswordTextField.setText(confirmPassword);
+  }
+  public void setEmail(String email) {
+    emailTextField.setText(email);
+  }
+
+
   public void signUp() {
     String sql = "INSERT INTO account (userName, password, email) SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM account WHERE userName = ? OR email = ?);";
 
