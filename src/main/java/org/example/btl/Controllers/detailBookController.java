@@ -17,9 +17,6 @@ public class detailBookController {
   private HBox listBookButton;
 
   @FXML
-  private Button backButton;
-
-  @FXML
   private TextArea ISBNTextArea;
 
   @FXML
@@ -185,6 +182,4 @@ public class detailBookController {
     Image image = new Image(book.getImageUrl());
     imageBookImageView.setImage(image);
   }
-
-
 }
