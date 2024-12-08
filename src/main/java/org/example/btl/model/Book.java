@@ -115,6 +115,8 @@ public class Book {
   }
 
   public void generateQRCode(String outputPath) throws WriterException, IOException {
+
+    outputPath = "QrCodePNG/" + outputPath;
     // Tao chuoi thong tin cho qr code
     String qrData = String.format("Book Information:\n" +
             "ISBN: %s\n" +

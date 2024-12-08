@@ -18,7 +18,10 @@ public class QRCodeGenerator {
   public static void generateQRCode(String data, String filePath, int width, int height)
       throws WriterException, IOException {
     // tạo thư mục neu chua tồn tại
-    Files.createDirectories(FileSystems.getDefault().getPath(filePath).getParent());
+    Path parentPath = FileSystems.getDefault().getPath(filePath).getParent();
+    if (parentPath != null && !Files.exists(parentPath)) {
+      Files.createDirectories(parentPath);
+    }
 
     // tạo ma qr
     QRCodeWriter qrCodeWriter = new QRCodeWriter();
