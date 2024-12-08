@@ -1,15 +1,26 @@
 package org.example.btl.Controllers;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDate;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.example.btl.Database.database;
+import org.example.btl.informationUserName;
 import org.example.btl.model.Book;
 
 public class detailBookUserController {
@@ -48,6 +59,12 @@ public class detailBookUserController {
 
   @FXML
   private TextArea quantityTextArea;
+
+  @FXML
+  private TextField numberBorrowedBooksTextField;
+
+  @FXML
+  private TextField numberViolationsTextField;
 
   public void dashboardUserView(){
     try {
@@ -115,9 +132,102 @@ public class detailBookUserController {
 
     Image image = new Image(book.getImageUrl());
     imageBookImageView.setImage(image);
+
+    this.book = book;
   }
 
-  public void borrowBook(){
+  public void showInformation(){
+    numberBorrowedBooksTextField.setText("" + informationUserName.numberBorrowedBooks);
+    numberBorrowedBooksTextField.setEditable(false);
+    numberViolationsTextField.setText("" + informationUserName.numberViolations);
+    numberViolationsTextField.setEditable(false);
+  }
 
+  Book book;
+
+  private Connection connect;
+  private PreparedStatement prepareUpdate;
+  private ResultSet resultUpdate;
+
+  private PreparedStatement prepareAdd;
+  private ResultSet resultAdd;
+
+  private PreparedStatement prepareFind;
+  private ResultSet resultFind;
+
+  public void borrowBook(){
+    Alert alert;
+    if (informationUserName.numberViolations > 3 || informationUserName.numberBorrowedBooks > 30){
+      alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Admin Message");
+      alert.setHeaderText(null);
+      alert.setContentText("Bạn không đủ điều kiện để mượn sách");
+      alert.showAndWait();
+      return;
+    }
+
+    String sql = "SELECT * FROM borrowedhistory WHERE ISBN = ? AND returnDate is null";
+    connect = database.connectDB();
+    try {
+        prepareFind = connect.prepareStatement(sql);
+        prepareFind.setString(1, book.getISBN());
+        resultFind = prepareFind.executeQuery();
+        if(resultFind.next()){
+          alert = new Alert(AlertType.ERROR);
+          alert.setTitle("Admin Message");
+          alert.setHeaderText(null);
+          alert.setContentText("Bạn chưa trả sách nên không thể mượn tiếp");
+          alert.showAndWait();
+          return;
+        }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    int rowsAffected1 = 0;
+    int rowsAffected2 = 0;
+
+    sql = "UPDATE account SET numberBorrowedBooks = numberBorrowedBooks + 1 WHERE userName = ?";
+    try {
+      prepareUpdate = connect.prepareStatement(sql);
+      prepareUpdate.setString(1, informationUserName.userName);
+      rowsAffected1 = prepareUpdate.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    sql = "INSERT INTO borrowedhistory (ISBN, bookName, userName, borrowDate) VALUES (?, ?, ?, ?)";
+
+    try {
+      LocalDate localDate = LocalDate.now();
+      prepareAdd = connect.prepareStatement(sql);
+      prepareAdd.setString(1, book.getISBN());
+      prepareAdd.setString(2, book.getBookName());
+      prepareAdd.setString(3, informationUserName.userName);
+      prepareAdd.setDate(4, Date.valueOf(localDate));
+      rowsAffected2 = prepareAdd.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    if (rowsAffected1 > 0 && rowsAffected2 > 0){
+      informationUserName.numberBorrowedBooks++;
+      alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("Admin Message");
+      alert.setHeaderText(null);
+      alert.setContentText("Mượn sách thành công");
+      alert.showAndWait();
+    } else {
+      alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Admin Message");
+      alert.setHeaderText(null);
+      alert.setContentText("Lỗi mượn sách");
+      alert.showAndWait();
+    }
+  }
+
+  @FXML
+  public void initialize(){
+    showInformation();
   }
 }

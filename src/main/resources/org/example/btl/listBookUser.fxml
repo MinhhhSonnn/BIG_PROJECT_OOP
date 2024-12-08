@@ -131,6 +131,30 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="390.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Số sách đã mượn">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="numberBorrowedBooksTextField" alignment="CENTER" prefHeight="30.0">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label text="Số lần vi phạm">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="numberViolationsTextField" alignment="CENTER" prefHeight="30.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

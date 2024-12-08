@@ -59,7 +59,7 @@ public class signUpController {
 
 
   public void signUp() {
-    String sql = "INSERT INTO account (userName, password, email) SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM account WHERE userName = ? OR email = ?);";
+    String sql = "INSERT INTO account (userName, password, email, numberBorrowedBooks, numberViolations) SELECT ?, ?, ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM account WHERE userName = ? OR email = ?);";
 
     connect = database.connectDB();
     try {
@@ -67,8 +67,10 @@ public class signUpController {
       prepare.setString(1, usernameTextField.getText());
       prepare.setString(2, confirmPasswordTextField.getText());
       prepare.setString(3, emailTextField.getText());
-      prepare.setString(4, usernameTextField.getText());
-      prepare.setString(5, emailTextField.getText());
+      prepare.setInt(4, 0);
+      prepare.setInt(5, 0);
+      prepare.setString(6, usernameTextField.getText());
+      prepare.setString(7, emailTextField.getText());
       int rowsAffected = prepare.executeUpdate();
 
       Alert alert;
