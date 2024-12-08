@@ -14,6 +14,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.btl.Alert.AlertUtil;
 import org.example.btl.Database.database;
 
 public class signUpController {
@@ -82,6 +83,9 @@ public class signUpController {
       prepare.setString(7, emailTextField.getText());
       int rowsAffected = prepare.executeUpdate();
 
+      if(!isValidEmail(emailTextField.getText())){
+        AlertUtil.showAlert(AlertType.ERROR, "Email không hợp lệ");
+      }
       if (emailTextField.getText().isEmpty() || usernameTextField.getText().isEmpty()
           || passwordTextField.getText().isEmpty() || confirmPasswordTextField.getText().isEmpty()
           || emailTextField.getText().isEmpty()) {
@@ -126,6 +130,10 @@ public class signUpController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+  private boolean isValidEmail(String email) {
+    String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    return email.matches(emailRegex);
   }
 
   @FXML

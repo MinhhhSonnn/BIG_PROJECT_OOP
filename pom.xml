@@ -18,12 +18,12 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>17.0.6</version>
+      <version>23</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>17.0.6</version>
+      <version>23</version>
     </dependency>
 
 <dependency>
@@ -89,6 +89,13 @@
     <dependency>
       <groupId>org.testfx</groupId>
       <artifactId>testfx-junit5</artifactId>
+      <version>4.0.16-alpha</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.testfx</groupId>
+      <artifactId>testfx-core</artifactId>
       <version>4.0.16-alpha</version>
       <scope>test</scope>
     </dependency>
