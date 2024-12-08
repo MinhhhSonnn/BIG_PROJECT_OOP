@@ -6,6 +6,9 @@ module org.example.btl {
   requires json.simple;
   requires java.mail;
   requires java.desktop;
+  requires javafx.media;
+  requires com.google.zxing;
+  requires com.google.zxing.javase;
 
   opens org.example.btl.Controllers to javafx.fxml;
     exports org.example.btl;
@@ -13,4 +16,5 @@ module org.example.btl {
   opens org.example.btl.Database to javafx.fxml;
   opens org.example.btl.model to javafx.base, javafx.fxml;
   opens org.example.btl.service to javafx.base, javafx.fxml;
+  opens org.example.btl.Util to javafx.fxml;
 }

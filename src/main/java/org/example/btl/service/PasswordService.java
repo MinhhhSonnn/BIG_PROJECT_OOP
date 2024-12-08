@@ -3,7 +3,7 @@ package org.example.btl.service;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import org.example.btl.Controllers.EmailUtil;
+import org.example.btl.Util.EmailUtil;
 import org.example.btl.Database.database;
 import java.sql.*;
 

@@ -1,5 +1,9 @@
 package org.example.btl.model;
 
+import com.google.zxing.WriterException;
+import java.io.IOException;
+import org.example.btl.Util.QRCodeGenerator;
+
 public class Book {
 
   private String bookName;
@@ -108,6 +112,20 @@ public class Book {
 
   public void setQuantity(int quantity) {
     this.quantity = quantity;
+  }
+
+  public void generateQRCode(String outputPath) throws WriterException, IOException {
+    // Tao chuoi thong tin cho qr code
+    String qrData = String.format("Book Information:\n" +
+            "ISBN: %s\n" +
+            "Title: %s\n" +
+            "Author: %s\n" +
+            "Category: %s\n" +
+            "Publication Year: %s",
+        this.ISBN, this.bookName, this.author, this.category, this.publicationYear);
+
+    // Tạo QR code
+    QRCodeGenerator.generateQRCode(qrData, outputPath, 300, 300);
   }
 
 }
