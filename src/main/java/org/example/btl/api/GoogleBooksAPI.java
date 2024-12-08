@@ -68,7 +68,8 @@ public class GoogleBooksAPI {
 
   private static String getApiResponse(String query) {
     try {
-      URL url = new URL(API_URL + query);
+      String encodedQuery = java.net.URLEncoder.encode(query, "UTF-8");
+      URL url = new URL(API_URL + encodedQuery);
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestMethod("GET");// get ve
       connection.setRequestProperty("Accept", "application/json");

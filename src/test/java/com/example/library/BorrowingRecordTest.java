@@ -3,28 +3,25 @@ package com.example.library;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.example.btl.model.BorrowingRecord;
-import org.example.btl.model.Reader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 public class BorrowingRecordTest {
   private BorrowingRecord borrowingRecord;
-  private Reader testReader;
   private final String TEST_ISBN = "9780132350884";
   private final String TEST_BOOK_NAME = "Clean Code";
+  private final String TEST_USER_NAME = "johnDoe";
   private final LocalDate TEST_BORROW_DATE = LocalDate.of(2024, 12, 1);
   private final LocalDate TEST_RETURN_DATE = LocalDate.of(2024, 12, 15);
 
   @BeforeEach
   void setUp() {
-    testReader = new Reader("testUser", "password123", "test@example.com", 0, 0);
     borrowingRecord = new BorrowingRecord(
         TEST_ISBN,
         TEST_BOOK_NAME,
-        testReader,
+        TEST_USER_NAME,
         TEST_BORROW_DATE,
-        null,
         TEST_RETURN_DATE
     );
   }
@@ -32,27 +29,27 @@ public class BorrowingRecordTest {
   @Test
   void testDefaultConstructor() {
     BorrowingRecord defaultRecord = new BorrowingRecord();
-    assertNull(defaultRecord.getIsbn());
+    assertNull(defaultRecord.getISBN());
     assertNull(defaultRecord.getBookName());
-    assertNull(defaultRecord.getReader());
+    assertNull(defaultRecord.getUserName());
     assertNull(defaultRecord.getBorrowDate());
     assertNull(defaultRecord.getReturnDate());
   }
 
   @Test
   void testParameterizedConstructor() {
-    assertEquals(TEST_ISBN, borrowingRecord.getIsbn());
+    assertEquals(TEST_ISBN, borrowingRecord.getISBN());
     assertEquals(TEST_BOOK_NAME, borrowingRecord.getBookName());
-    assertEquals(testReader, borrowingRecord.getReader());
+    assertEquals(TEST_USER_NAME, borrowingRecord.getUserName());
     assertEquals(TEST_BORROW_DATE, borrowingRecord.getBorrowDate());
     assertEquals(TEST_RETURN_DATE, borrowingRecord.getReturnDate());
   }
 
   @Test
-  void testSetAndGetIsbn() {
-    String newIsbn = "9780134494166";
-    borrowingRecord.setIsbn(newIsbn);
-    assertEquals(newIsbn, borrowingRecord.getIsbn());
+  void testSetAndGetISBN() {
+    String newISBN = "9780134494166";
+    borrowingRecord.setISBN(newISBN);
+    assertEquals(newISBN, borrowingRecord.getISBN());
   }
 
   @Test
@@ -63,10 +60,10 @@ public class BorrowingRecordTest {
   }
 
   @Test
-  void testSetAndGetReader() {
-    Reader newReader = new Reader("newUser", "newPass", "new@example.com", 1, 0);
-    borrowingRecord.setReader(newReader);
-    assertEquals(newReader, borrowingRecord.getReader());
+  void testSetAndGetUserName() {
+    String newUserName = "janeDoe";
+    borrowingRecord.setUserName(newUserName);
+    assertEquals(newUserName, borrowingRecord.getUserName());
   }
 
   @Test
@@ -85,15 +82,15 @@ public class BorrowingRecordTest {
 
   @Test
   void testNullValues() {
-    borrowingRecord.setIsbn(null);
+    borrowingRecord.setISBN(null);
     borrowingRecord.setBookName(null);
-    borrowingRecord.setReader(null);
+    borrowingRecord.setUserName(null);
     borrowingRecord.setBorrowDate(null);
     borrowingRecord.setReturnDate(null);
 
-    assertNull(borrowingRecord.getIsbn());
+    assertNull(borrowingRecord.getISBN());
     assertNull(borrowingRecord.getBookName());
-    assertNull(borrowingRecord.getReader());
+    assertNull(borrowingRecord.getUserName());
     assertNull(borrowingRecord.getBorrowDate());
     assertNull(borrowingRecord.getReturnDate());
   }
@@ -107,5 +104,16 @@ public class BorrowingRecordTest {
     borrowingRecord.setReturnDate(returnDate);
 
     assertTrue(borrowingRecord.getReturnDate().isAfter(borrowingRecord.getBorrowDate()));
+  }
+
+  @Test
+  void testEmptyStrings() {
+    borrowingRecord.setISBN("");
+    borrowingRecord.setBookName("");
+    borrowingRecord.setUserName("");
+
+    assertEquals("", borrowingRecord.getISBN());
+    assertEquals("", borrowingRecord.getBookName());
+    assertEquals("", borrowingRecord.getUserName());
   }
 }
