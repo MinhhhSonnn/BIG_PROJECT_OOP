@@ -38,6 +38,7 @@ public class Main extends Application {
     stage.setTitle("UET Library Management");
     stage.setScene(scene);
     stage.show();
+
   }
 
   public static void main(String[] args) {
