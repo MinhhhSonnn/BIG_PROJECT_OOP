@@ -265,6 +265,7 @@ public class listBookController {
       return;
     }
     try {
+      if (book == null) return;
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/btl/detailBook.fxml"));
       Parent root = loader.load();
 

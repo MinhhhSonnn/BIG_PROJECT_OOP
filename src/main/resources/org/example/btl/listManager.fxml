@@ -34,7 +34,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="80.0" prefWidth="768.0">
                      <children>
-                        <ImageView fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="searchButton" fitHeight="23.0" fitWidth="24.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/logo_search.png" />
                            </image>
@@ -42,7 +42,7 @@
                               <Insets />
                            </HBox.margin>
                         </ImageView>
-                        <TextField prefHeight="25.0" prefWidth="338.0" style="-fx-background-radius: 50;" />
+                        <TextField fx:id="searchTextField" prefHeight="25.0" prefWidth="338.0" style="-fx-background-radius: 50;" />
                      </children>
                   </HBox>
                   <Label text="Xin chào!">
@@ -94,7 +94,7 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
+                  <HBox fx:id="listManagerButton" alignment="CENTER" onMouseClicked="#listManagerView" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -234,14 +234,14 @@
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <TableView prefHeight="1500.0" prefWidth="900.0">
+            <TableView fx:id="tableView" prefHeight="1500.0" prefWidth="900.0">
               <columns>
-                <TableColumn minWidth="200.0" prefWidth="75.0" text="Họ và tên" />
-                <TableColumn minWidth="100.0" prefWidth="75.0" text="Giới tính" />
-                  <TableColumn minWidth="100.0" prefWidth="75.0" text="Ngày sinh" />
-                  <TableColumn minWidth="100.0" prefWidth="75.0" text="Chức vụ" />
-                  <TableColumn minWidth="150.0" prefWidth="75.0" text="SĐT" />
-                  <TableColumn minWidth="250.0" prefWidth="75.0" text="Email" />
+                <TableColumn fx:id="IDColumn" minWidth="100.0" prefWidth="75.0" text="Mã nhân viên" />
+                <TableColumn fx:id="employeeNameColumn" minWidth="200.0" prefWidth="75.0" text="Họ và tên" />
+                  <TableColumn fx:id="sexColumn" minWidth="100.0" prefWidth="75.0" text="Giới tính" />
+                  <TableColumn fx:id="positionColumn" minWidth="100.0" prefWidth="75.0" text="Chức vụ" />
+                  <TableColumn fx:id="phoneColumn" minWidth="200.0" prefWidth="75.0" text="SĐT" />
+                  <TableColumn fx:id="emailColumn" minWidth="200.0" prefWidth="75.0" text="Email" />
               </columns>
             </TableView>
          </content>

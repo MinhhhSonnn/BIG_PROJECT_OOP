@@ -223,11 +223,11 @@
          <content>
             <TableView fx:id="tableView" prefHeight="1500.0" prefWidth="900.0">
                <columns>
-                  <TableColumn minWidth="250.0" prefWidth="75.0" />
-                  <TableColumn minWidth="200.0" prefWidth="75.0" />
-                  <TableColumn minWidth="200.0" prefWidth="75.0" />
-                  <TableColumn minWidth="125.0" prefWidth="129.0" />
-                  <TableColumn minWidth="125.0" prefWidth="141.0" />
+                  <TableColumn fx:id="bookNameColumn" minWidth="250.0" prefWidth="75.0" text="Tên sách" />
+                  <TableColumn fx:id="ISBNColumn" minWidth="200.0" prefWidth="75.0" text="ISBN" />
+                  <TableColumn fx:id="userNameColumn" minWidth="200.0" prefWidth="75.0" text="Người mượn" />
+                  <TableColumn fx:id="borrowDateColumn" minWidth="125.0" prefWidth="129.0" text="Ngày mượn" />
+                  <TableColumn fx:id="returnDateColumn" minWidth="125.0" prefWidth="141.0" text="Ngày trả" />
                </columns>
             </TableView>
          </content>

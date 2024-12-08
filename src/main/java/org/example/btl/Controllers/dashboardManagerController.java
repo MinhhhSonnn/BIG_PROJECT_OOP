@@ -4,12 +4,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class dashboardManagerController {
   @FXML
   private HBox addBookButton;
+
+  @FXML
+  private HBox borrowHistoryButton;
+
+  @FXML
+  private HBox changeManagerButton;
 
   @FXML
   private HBox listBookButton;
@@ -21,10 +29,10 @@ public class dashboardManagerController {
   private HBox listUserButton;
 
   @FXML
-  private HBox borrowHistoryButton;
+  private Button logOutButton;
 
   @FXML
-  private HBox changeManagerButton;
+  private Label userNameTextField;
 
   public void listManagerView(){
     try {
@@ -100,6 +108,20 @@ public class dashboardManagerController {
     try {
       Stage stage = (Stage) borrowHistoryButton.getScene().getWindow();
       Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/borrowHistory.fxml"));
+      Scene scene = new Scene(root);
+      stage.setResizable(false); // tat nut maximine
+      stage.setTitle("UET Library Management");
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void logOut(){
+    try {
+      Stage stage = (Stage) changeManagerButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("/org/example/btl/login.fxml"));
       Scene scene = new Scene(root);
       stage.setResizable(false); // tat nut maximine
       stage.setTitle("UET Library Management");

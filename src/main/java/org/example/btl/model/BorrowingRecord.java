@@ -4,37 +4,37 @@ import java.time.LocalDate;
 
 public class BorrowingRecord {
 
-  private String isbn;
+  private String ISBN;
   private String bookName;
-  private Reader reader;
+  private String userName;
   private LocalDate borrowDate;
 
   private LocalDate returnDate; // ngay thuc te tra sach
 
   public BorrowingRecord() {
-    isbn = null;
+    ISBN = null;
     bookName = null;
-    reader = null;
+    userName = null;
     borrowDate = null;
     returnDate = null;
   }
 
-  public BorrowingRecord(String isbn, String bookName, Reader reader, LocalDate borrowDate,
-      LocalDate dueDate,
+  public BorrowingRecord(String ISBN, String bookName, String userName, LocalDate borrowDate,
       LocalDate returnDate) {
-    this.isbn = isbn;
+    this.ISBN = ISBN;
     this.bookName = bookName;
-    this.reader = reader;
+    this.userName = userName;
     this.borrowDate = borrowDate;
 
     this.returnDate = returnDate;
   }
-  public String getIsbn() {
-    return isbn;
+
+  public String getISBN() {
+    return ISBN;
   }
 
-  public void setIsbn(String isbn) {
-    this.isbn = isbn;
+  public void setISBN(String ISBN) {
+    this.ISBN = ISBN;
   }
 
   public String getBookName() {
@@ -45,12 +45,12 @@ public class BorrowingRecord {
     this.bookName = bookName;
   }
 
-  public Reader getReader() {
-    return reader;
+  public String getUserName() {
+    return userName;
   }
 
-  public void setReader(Reader reader) {
-    this.reader = reader;
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 
   public LocalDate getBorrowDate() {

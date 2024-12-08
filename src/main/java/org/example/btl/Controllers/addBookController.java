@@ -1,15 +1,9 @@
 package org.example.btl.Controllers;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -185,6 +179,7 @@ public class addBookController {
   public void addBook(){
     Book book = GoogleBooksAPI.getBookInfo(ISBNTextField.getText());
     Alert alert;
+    int quantity;
 
     if (ISBNTextField.getText().isEmpty() || quantityTextField.getText().isEmpty()){
       alert = new Alert(AlertType.ERROR);
@@ -201,7 +196,6 @@ public class addBookController {
       alert.showAndWait();
     }
     else if (!isInteger(quantityTextField.getText()) || Integer.parseInt(quantityTextField.getText()) > 2147483640 || Integer.parseInt(quantityTextField.getText()) < 0){
-      System.out.println(Integer.parseInt(quantityTextField.getText()));
       alert = new Alert(AlertType.ERROR);
       alert.setTitle("Admin Message");
       alert.setHeaderText(null);
@@ -209,38 +203,43 @@ public class addBookController {
       alert.showAndWait();
     }
     else {
-      String sql = "INSERT INTO books (bookName, author, category, quantity, publicationYear, ISBN, imageUrl, description) " +
-          "SELECT ?, ?, ?, ?, ?, ?, ?, ? " +
-          "WHERE NOT EXISTS (SELECT 1 FROM books WHERE ISBN = ?);";
+      quantity = Integer.parseInt(quantityTextField.getText());
+      String sql = "SELECT * FROM books WHERE ISBN = ?";
 
       connect = database.connectDB();
       try {
         prepare = connect.prepareStatement(sql);
-        prepare.setString(1, book.getBookName());
-        prepare.setString(2, book.getAuthor());
-        prepare.setString(3, book.getCategory());
-        prepare.setInt(4, Integer.parseInt(quantityTextField.getText()));
-        prepare.setString(5, book.getPublicationYear());
-        prepare.setString(6, ISBNTextField.getText());
-        prepare.setString(7, book.getImageUrl());
-        prepare.setString(8, book.getDescription());
-        prepare.setString(9, book.getISBN());
-
-        int rowsAffected = prepare.executeUpdate();
-
-        if (rowsAffected > 0){
-          alert = new Alert(AlertType.INFORMATION);
-          alert.setTitle("Admin Message");
-          alert.setHeaderText(null);
-          alert.setContentText("Thêm sách thành công");
-          alert.showAndWait();
-        }
-        else {
+        prepare.setString(1, ISBNTextField.getText());
+        result = prepare.executeQuery();
+        if (result.next()){
           alert = new Alert(AlertType.ERROR);
           alert.setTitle("Admin Message");
           alert.setHeaderText(null);
           alert.setContentText("Sách đã tồn tại trong kho");
           alert.showAndWait();
+        } else {
+          sql = "INSERT INTO books (bookName, author, category, quantity, publicationYear, ISBN, imageUrl, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+          prepare = connect.prepareStatement(sql);
+
+          prepare.setString(1, book.getBookName());
+          prepare.setString(2, book.getAuthor());
+          prepare.setString(3, book.getCategory());
+          prepare.setInt(4, quantity);
+          prepare.setString(5, book.getPublicationYear());
+          prepare.setString(6, ISBNTextField.getText());
+          prepare.setString(7, book.getImageUrl());
+          prepare.setString(8, book.getDescription());
+
+          int rowsAffected = prepare.executeUpdate();
+
+          if (rowsAffected > 0) {
+            alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Admin Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Thêm sách thành công");
+            alert.showAndWait();
+          }
         }
       } catch (Exception e) {
         e.printStackTrace();
@@ -256,6 +255,14 @@ public class addBookController {
 
   public void updateBook(){
     Alert alert;
+    if (!isInteger(quantityNewTextField.getText()) || Integer.parseInt(quantityNewTextField.getText()) > 2147483640 ||  Integer.parseInt(quantityNewTextField.getText()) < 0){
+      alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Admin Message");
+      alert.setHeaderText(null);
+      alert.setContentText("Số lượng không hợp lệ");
+      alert.showAndWait();
+      return;
+    }
     String sql = "SELECT * FROM books WHERE ISBN = ?";
 
     connect = database.connectDB();

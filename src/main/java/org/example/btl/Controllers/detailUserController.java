@@ -1,22 +1,43 @@
 package org.example.btl.Controllers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDate;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.example.btl.Database.database;
+import org.example.btl.model.BorrowingRecord;
+import org.example.btl.model.Reader;
 
 public class detailUserController {
+  @FXML
+  private TableColumn<BorrowingRecord, String> ISBNColumn;
+
+  @FXML
+  private HBox addBookButton;
+
+  @FXML
+  private TableColumn<BorrowingRecord, String> bookNameColumn;
+
+  @FXML
+  private TableColumn<BorrowingRecord, LocalDate> borrowDateColumn;
+
   @FXML
   private HBox borrowHistoryButton;
 
   @FXML
   private HBox changeManagerButton;
-
-  @FXML
-  private HBox addBookButton;
 
   @FXML
   private HBox dashboardManagerButton;
@@ -31,7 +52,13 @@ public class detailUserController {
   private HBox listUserButton;
 
   @FXML
-  private TableView<?> tableView;
+  private TableColumn<BorrowingRecord, LocalDate> returnDateColumn;
+
+  @FXML
+  private TableView<BorrowingRecord> tableView;
+
+  @FXML
+  private TableColumn<BorrowingRecord, String> userNameColumn;
 
   public void dashboardManagerView(){
     try {
@@ -129,5 +156,47 @@ public class detailUserController {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private Connection connect;
+  private PreparedStatement prepare;
+  private ResultSet result;
+  private Statement statement;
+
+  ObservableList<BorrowingRecord> records;
+
+  public void setRecord(Reader reader){
+    ObservableList<BorrowingRecord> returnRecord = FXCollections.observableArrayList();
+
+    String sql = "SELECT * FROM borrowedhistory WHERE userName = ? ORDER BY borrowDate DESC";
+
+    connect = database.connectDB();
+
+    try {
+      BorrowingRecord record;
+      prepare = connect.prepareStatement(sql);
+      prepare.setString(1, reader.getUserName());
+      result = prepare.executeQuery();
+      while(result.next()){
+        LocalDate localDate = null;
+        if(result.getDate("returnDate") != null){
+          localDate = result.getDate("returnDate").toLocalDate();
+        }
+        record = new BorrowingRecord(result.getString("ISBN"), result.getString("bookName"), result.getString("userName"), result.getDate("borrowDate").toLocalDate(), localDate);
+
+        returnRecord.add(record);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    records = returnRecord;
+
+    bookNameColumn.setCellValueFactory(new PropertyValueFactory<>("bookName"));
+    ISBNColumn.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
+    userNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
+    borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
+    returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
+
+    tableView.setItems(records);
   }
 }
