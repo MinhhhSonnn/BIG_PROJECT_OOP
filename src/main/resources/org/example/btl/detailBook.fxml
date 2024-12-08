@@ -221,7 +221,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0">
                <children>
-                  <ImageView fx:id="imageBookImageView" fitHeight="250.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageBookImageView" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#changeImage" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0">

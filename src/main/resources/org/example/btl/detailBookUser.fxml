@@ -154,7 +154,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0">
                <children>
-                  <ImageView fx:id="imageBookImageView" fitHeight="250.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageBookImageView" fitHeight="250.0" fitWidth="200.0" onMouseClicked="#changeImage" pickOnBounds="true" preserveRatio="true" />
                   <Button fx:id="borrowBookButton" mnemonicParsing="false" onAction="#borrowBook" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-background-color: #D3D3D3;" text="Mượn sách">
                      <VBox.margin>
                         <Insets top="20.0" />

@@ -223,4 +223,34 @@ public class detailReturnBookController {
       alert.showAndWait();
     }
   }
+
+  int status = 0;
+
+  private PreparedStatement prepareFind2;
+  private ResultSet resultFind2;
+
+  public void changeImage(){
+    if (status == 0) status = 1;
+    else status = 0;
+    if (status == 1){
+      String sql = "SELECT * FROM qr WHERE ISBN = ?";
+
+      connect = database.connectDB();
+
+      try {
+        prepareFind2 = connect.prepareStatement(sql);
+        prepareFind2.setString(1, book.getISBN());
+        resultFind2 = prepareFind2.executeQuery();
+        resultFind2.next();
+        Image image = new Image(resultFind2.getString("linkQR"));
+        imageBookImageView.setImage(image);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      Image image = new Image(book.getImageUrl());
+      imageBookImageView.setImage(image);
+    }
+  }
 }

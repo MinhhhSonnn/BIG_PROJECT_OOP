@@ -1,5 +1,8 @@
 package org.example.btl.Controllers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javafx.scene.control.TextArea;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
+import org.example.btl.Database.database;
 import org.example.btl.model.Book;
 
 public class detailBookController {
@@ -181,5 +185,40 @@ public class detailBookController {
 
     Image image = new Image(book.getImageUrl());
     imageBookImageView.setImage(image);
+
+    this.book = book;
   }
+
+  int status = 0;
+  Book book = null;
+
+  private Connection connect;
+  private PreparedStatement prepareFind;
+  private ResultSet resultFind;
+
+  public void changeImage(){
+    if (status == 0) status = 1;
+    else status = 0;
+    if (status == 1){
+      String sql = "SELECT * FROM qr WHERE ISBN = ?";
+
+      connect = database.connectDB();
+
+      try {
+        prepareFind = connect.prepareStatement(sql);
+        prepareFind.setString(1, book.getISBN());
+        resultFind = prepareFind.executeQuery();
+        resultFind.next();
+        Image image = new Image(resultFind.getString("linkQR"));
+        imageBookImageView.setImage(image);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      Image image = new Image(book.getImageUrl());
+      imageBookImageView.setImage(image);
+    }
+  }
+
 }

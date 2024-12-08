@@ -392,8 +392,11 @@ public class listBookUserController {
     numberViolationsTextField.setEditable(false);
   }
 
-  private PreparedStatement prepareCheck;
-  private ResultSet resultCheck;
+  private PreparedStatement prepareCheck1;
+  private ResultSet resultCheck1;
+
+  private PreparedStatement prepareFix1;
+  private ResultSet resultFix1;
 
   public void checkViolations(){
     String sql = "SELECT COUNT(*) AS numberViolations " +
@@ -403,12 +406,56 @@ public class listBookUserController {
 
     connect = database.connectDB();
     try{
-      prepareCheck = connect.prepareStatement(sql);
-      prepareCheck.setString(1, informationUserName.userName);
-      prepareCheck.setDate(2, Date.valueOf(LocalDate.now()));
-      resultCheck = prepareCheck.executeQuery();
-      resultCheck.next();
-      informationUserName.numberViolations = resultCheck.getInt("numberViolations");
+      prepareCheck1 = connect.prepareStatement(sql);
+      prepareCheck1.setString(1, informationUserName.userName);
+      prepareCheck1.setDate(2, Date.valueOf(LocalDate.now()));
+      resultCheck1 = prepareCheck1.executeQuery();
+      resultCheck1.next();
+      informationUserName.numberViolations = resultCheck1.getInt("numberViolations");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    sql = "UPDATE account SET numberViolations = ? WHERE userName = ?";
+    try {
+      prepareFix1 = connect.prepareStatement(sql);
+      prepareFix1.setInt(1, resultCheck1.getInt("numberViolations"));
+      prepareFix1.setString(2, informationUserName.userName);
+      prepareFix1.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private PreparedStatement prepareCheck2;
+  private ResultSet resultCheck2;
+
+  private PreparedStatement prepareFix2;
+  private ResultSet resultFix2;
+
+  public void checkBorrowedBook(){
+    String sql = "SELECT COUNT(*) AS numberBorrowedBooks " +
+        "FROM borrowedhistory " +
+        "WHERE userName = ? " +
+        "AND returnDate IS null";
+
+    connect = database.connectDB();
+    try{
+      prepareCheck2 = connect.prepareStatement(sql);
+      prepareCheck2.setString(1, informationUserName.userName);
+      resultCheck2 = prepareCheck2.executeQuery();
+      resultCheck2.next();
+      informationUserName.numberBorrowedBooks= resultCheck2.getInt("numberBorrowedBooks");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    sql = "UPDATE account SET numberBorrowedBooks = ? WHERE userName = ?";
+    try {
+      prepareFix2 = connect.prepareStatement(sql);
+      prepareFix2.setInt(1, resultCheck2.getInt("numberBorrowedBooks"));
+      prepareFix2.setString(2, informationUserName.userName);
+      prepareFix2.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -420,6 +467,7 @@ public class listBookUserController {
     showBook();
     showInformation();
     checkViolations();
+    checkBorrowedBook();
     tableView.setOnMouseClicked(event -> {
       if (event.getClickCount() == 1) {
         selectBook();
