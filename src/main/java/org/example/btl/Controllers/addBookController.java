@@ -265,15 +265,20 @@ public class addBookController {
   private PreparedStatement prepareUpdate;
   private ResultSet resultUpdate;
 
+  private PreparedStatement prepareChange;
+  private ResultSet resultChange;
+
   public void updateBook(){
     Alert alert;
     if (!isInteger(quantityNewTextField.getText()) || Integer.parseInt(quantityNewTextField.getText()) > 2147483640 ||  Integer.parseInt(quantityNewTextField.getText()) < 0){
-      alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Admin Message");
-      alert.setHeaderText(null);
-      alert.setContentText("Số lượng không hợp lệ");
-      alert.showAndWait();
-      return;
+      if (!quantityNewTextField.getText().isEmpty()){
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Admin Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Số lượng không hợp lệ");
+        alert.showAndWait();
+        return;
+      }
     }
     String sql = "SELECT * FROM books WHERE ISBN = ?";
 
@@ -290,6 +295,7 @@ public class addBookController {
         alert.setContentText("Hãy nhập ISBN để thay đổi thông tin sách");
         alert.showAndWait();
       } else if (resultFind.next()) {
+
         sql = "UPDATE books SET " +
             "bookName = CASE WHEN ? != '' THEN ? ELSE bookName END, " +
             "author = CASE WHEN ? != '' THEN ? ELSE author END, " +
@@ -328,6 +334,19 @@ public class addBookController {
           alert.setHeaderText(null);
           alert.setContentText("Cập nhật sách thành công");
           alert.showAndWait();
+
+          sql = "SELECT * FROM books WHERE ISBN = ?";
+          prepareChange = connect.prepareStatement(sql);
+          prepareChange.setString(1, ISBNNewTextField.getText());
+          resultChange = prepareChange.executeQuery();
+          resultChange.next();
+
+          Book book = new Book(resultChange.getString("bookName"), resultChange.getString("author"), resultChange.getString("ISBN"), resultChange.getInt("quantity"),
+              resultChange.getString("description"), resultChange.getString("imageUrl"), resultChange.getString("publicationYear"), resultChange.getString("category"));
+
+          File file = new File("D:\\subject\\oop\\BTL\\QrCodePNG\\" + book.getISBN() + ".png");
+          file.delete();
+          book.generateQRCode(book.getISBN() + ".png");
 
         } catch (Exception e) {
           e.printStackTrace();
