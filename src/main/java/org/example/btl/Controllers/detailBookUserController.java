@@ -155,6 +155,9 @@ public class detailBookUserController {
   private PreparedStatement prepareFind;
   private ResultSet resultFind;
 
+  private PreparedStatement prepareUpdate2;
+  private ResultSet resultUpdate2;
+
   public void borrowBook(){
     Alert alert;
     if (informationUserName.numberViolations > 3 || informationUserName.numberBorrowedBooks > 30){
@@ -210,8 +213,19 @@ public class detailBookUserController {
       e.printStackTrace();
     }
 
+    sql = "UPDATE books SET quantity = quantity - 1 WHERE ISBN = ?";
+    try {
+      prepareUpdate2 = connect.prepareStatement(sql);
+      prepareUpdate2.setString(1, book.getISBN());
+      prepareUpdate2.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     if (rowsAffected1 > 0 && rowsAffected2 > 0){
+
       informationUserName.numberBorrowedBooks++;
+
       alert = new Alert(AlertType.INFORMATION);
       alert.setTitle("Admin Message");
       alert.setHeaderText(null);

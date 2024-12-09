@@ -6,7 +6,6 @@ import javafx.concurrent.Task;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.stage.StageStyle;
 import javafx.scene.input.MouseEvent;

@@ -146,6 +146,9 @@ public class detailReturnBookController {
   private PreparedStatement prepareFix;
   private ResultSet resultFix;
 
+  private PreparedStatement prepareUpdate2;
+  private ResultSet resultUpdate2;
+
   public void returnBook(){
     Alert alert;
     String sql = "SELECT * FROM borrowedhistory WHERE userName = ? AND ISBN = ?";
@@ -204,6 +207,15 @@ public class detailReturnBookController {
       prepareFix = connect.prepareStatement(sql);
       prepareFix.setString(1, informationUserName.userName);
       rowsAffected2 = prepareFix.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    sql = "UPDATE books SET quantity = quantity + 1 WHERE ISBN = ?";
+    try {
+      prepareUpdate2 = connect.prepareStatement(sql);
+      prepareUpdate2.setString(1, book.getISBN());
+      prepareUpdate2.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
