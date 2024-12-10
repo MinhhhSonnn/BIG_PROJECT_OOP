@@ -4,7 +4,7 @@ import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import org.example.btl.Util.EmailUtil;
-import org.example.btl.Database.database;
+import org.example.btl.Database.Database;
 import java.sql.*;
 
 public class PasswordService {
@@ -25,7 +25,7 @@ public class PasswordService {
   private boolean isEmailExists(String email) {
     String sql = "SELECT COUNT(*) FROM account WHERE email = ?";
 
-    try (Connection connect = database.connectDB();
+    try (Connection connect = Database.connectDB();
         PreparedStatement prepare = connect.prepareStatement(sql)) {
 
       prepare.setString(1, email);

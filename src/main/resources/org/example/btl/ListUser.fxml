@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btl.Controllers.ListUserController">
+   <top>
+      <HBox prefHeight="80.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../images/logo_book1.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" prefHeight="80.0" prefWidth="80.0" text="UET">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="910.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="768.0">
+                     <children>
+                        <ImageView fx:id="searchButton" fitHeight="23.0" fitWidth="24.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logo_search.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                        <TextField fx:id="searchTextField" prefHeight="25.0" prefWidth="338.0" style="-fx-background-radius: 50;" />
+                     </children>
+                  </HBox>
+                  <Label text="Xin chào!">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo_user.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="570.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="570.0" prefWidth="200.0">
+               <children>
+                  <HBox fx:id="dashboardManagerButton" alignment="CENTER" onMouseClicked="#dashboardManagerView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_dashboard.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Trang chủ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="listManagerButton" alignment="CENTER" onMouseClicked="#listManagerView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logo_users.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Quản lý">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="listUserButton" alignment="CENTER" onMouseClicked="#listUserView" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_reader.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Người mượn">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="listBookButton" alignment="CENTER" onMouseClicked="#listBookView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_book2.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Kho sách">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="addBookButton" alignment="CENTER" onMouseClicked="#addBookView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_addbook.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Quản lý sách">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="changeManagerButton" alignment="CENTER" layoutX="10.0" layoutY="250.0" onMouseClicked="#changeManagerView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_changeManager.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Quản lý NV">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="borrowHistoryButton" alignment="CENTER" layoutX="10.0" layoutY="310.0" onMouseClicked="#borrowHistoryView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_borrowHistory.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Lịch sử">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+            <TableView fx:id="tableView" prefHeight="1500.0" prefWidth="900.0">
+              <columns>
+                <TableColumn fx:id="emailColumn" minWidth="250.0" prefWidth="75.0" text="Email" />
+                <TableColumn fx:id="userNameColumn" minWidth="200.0" prefWidth="75.0" text="Username" />
+                  <TableColumn fx:id="passwordColumn" minWidth="200.0" prefWidth="75.0" text="Password" />
+                  <TableColumn fx:id="numberBorrowedBooksColumn" minWidth="125.0" prefWidth="129.0" text="Số sách mượn" />
+                  <TableColumn fx:id="numberViolations" minWidth="125.0" prefWidth="141.0" text="Số lần bị phạt" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>

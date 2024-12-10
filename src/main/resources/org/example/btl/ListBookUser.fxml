@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btl.Controllers.ListBookUserController">
+   <top>
+      <HBox prefHeight="80.0" prefWidth="1100.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../images/logo_book1.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" prefHeight="80.0" prefWidth="80.0" text="UET">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="910.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="80.0" prefWidth="769.0">
+                     <children>
+                        <ImageView fx:id="searchButton" fitHeight="23.0" fitWidth="24.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logo_search.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="searchTextField" prefHeight="25.0" prefWidth="338.0" style="-fx-background-radius: 50;" />
+                     </children>
+                  </HBox>
+                  <Label text="Xin chào!">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo_user.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="570.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="570.0" prefWidth="200.0">
+               <children>
+                  <HBox fx:id="dashboardUserButton" alignment="CENTER" onMouseClicked="#dashboardUserView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_dashboard.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Trang chủ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox fx:id="myBookButton" alignment="CENTER" onMouseClicked="#myBookView" prefHeight="60.0" prefWidth="230.0" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logo_book2.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Sách của tôi">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="listBookButton" alignment="CENTER" onMouseClicked="#listBookView" prefHeight="60.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;" stylesheets="@../Styles/dashboard.css">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/logo_reader.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="20.0" prefWidth="118.0" text="Kho sách">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="15.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="390.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Số sách đã mượn">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="numberBorrowedBooksTextField" alignment="CENTER" prefHeight="30.0">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label text="Số lần vi phạm">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="numberViolationsTextField" alignment="CENTER" prefHeight="30.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="900.0">
+               <children>
+                  <Label text="Top sách được mượn nhiều nhất">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox prefHeight="140.0" prefWidth="900.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="140.0" prefWidth="900.0">
+                     <children>
+                        <Label text="1">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ImageView fx:id="top1BookImageView" fitHeight="125.0" fitWidth="100.0" onMouseClicked="#top1Book" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="392.0" layoutY="77.0" text="2">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="120.0" right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ImageView fx:id="top2BookImageView" fitHeight="125.0" fitWidth="100.0" layoutX="406.0" layoutY="23.0" onMouseClicked="#top2Book" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="460.0" layoutY="77.0" text="3">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="120.0" right="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ImageView fx:id="top3BookImageView" fitHeight="125.0" fitWidth="100.0" layoutX="474.0" layoutY="23.0" onMouseClicked="#top3Book" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <ScrollPane prefHeight="400.0" prefWidth="900.0">
+               <content>
+                  <TableView fx:id="tableView" prefHeight="1500.0" prefWidth="900.0">
+                    <columns>
+                      <TableColumn fx:id="bookNameColumn" minWidth="200.0" prefWidth="75.0" text="Tên sách" />
+                      <TableColumn fx:id="ISBNColumn" minWidth="200.0" prefWidth="75.0" text="Mã ISBN" />
+                        <TableColumn fx:id="authorColumn" minWidth="150.0" prefWidth="75.0" text="Tác giả" />
+                        <TableColumn fx:id="categoryColumn" minWidth="120.0" prefWidth="75.0" text="Thể loại" />
+                        <TableColumn fx:id="publicationYearColumn" minWidth="100.0" prefWidth="75.0" text="Năm xuất bản" />
+                        <TableColumn fx:id="quantityColumn" minWidth="120.0" prefWidth="75.0" text="Số lượng hiện có" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

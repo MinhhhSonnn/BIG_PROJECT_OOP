@@ -2,32 +2,31 @@ package com.example.library;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.example.btl.Controllers.addBookController;
-import org.example.btl.model.Book;
+import org.example.btl.Controllers.EditBookController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class AddBookControllerTest {
 
-  private addBookController controller;
+  private EditBookController controller;
 
   @BeforeEach
   void setUp() {
-    controller = new addBookController();
+    controller = new EditBookController();
   }
 
   @Test
   void testIsInteger() {
     // Test các trường hợp số nguyên hợp lệ
-    assertTrue(addBookController.isInteger("123"));
-    assertTrue(addBookController.isInteger("0"));
-    assertTrue(addBookController.isInteger("-123"));
+    assertTrue(EditBookController.isInteger("123"));
+    assertTrue(EditBookController.isInteger("0"));
+    assertTrue(EditBookController.isInteger("-123"));
 
     // Test các trường hợp không hợp lệ
-    assertFalse(addBookController.isInteger("abc"));
-    assertFalse(addBookController.isInteger("12.3"));
-    assertFalse(addBookController.isInteger(""));
-    assertFalse(addBookController.isInteger(null));
+    assertFalse(EditBookController.isInteger("abc"));
+    assertFalse(EditBookController.isInteger("12.3"));
+    assertFalse(EditBookController.isInteger(""));
+    assertFalse(EditBookController.isInteger(null));
   }
 
   @Test
@@ -61,7 +60,7 @@ class AddBookControllerTest {
 
   // Helper methods
   private boolean isValidQuantity(String quantity) {
-    if (!addBookController.isInteger(quantity)) {
+    if (!EditBookController.isInteger(quantity)) {
       return false;
     }
     try {

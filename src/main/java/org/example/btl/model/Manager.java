@@ -1,6 +1,7 @@
 package org.example.btl.model;
 
 public class Manager {
+
   private int ID;
   private String employeeName;
   private String sex;
@@ -8,7 +9,8 @@ public class Manager {
   private String phone;
   private String email;
 
-  public Manager(int ID,String employeeName, String sex, String position, String phone, String email) {
+  public Manager(int ID, String employeeName, String sex, String position, String phone,
+      String email) {
     this.ID = ID;
     this.employeeName = employeeName;
     this.sex = sex;

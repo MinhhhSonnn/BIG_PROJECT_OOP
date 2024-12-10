@@ -25,25 +25,25 @@ public class ForgotPasswordController {
     String email = emailField.getText().trim();
 
     if (email.isEmpty()) {
-      showAlert(AlertType.ERROR,  "Email không được để trống.");
+      showAlert(AlertType.ERROR, "Email không được để trống.");
       return;
     }
 
     if (!isValidEmail(email)) {
-      showAlert(AlertType.ERROR,  "Định dạng email không hợp lệ.");
+      showAlert(AlertType.ERROR, "Định dạng email không hợp lệ.");
       return;
     }
 
     try {
       passwordService.sendExistingPassword(email);
-      showAlert(AlertType.INFORMATION,  "Email khôi phục mật khẩu đã được gửi.");
+      showAlert(AlertType.INFORMATION, "Email khôi phục mật khẩu đã được gửi.");
 
     } catch (RuntimeException e) {
-      showAlert(AlertType.ERROR,  e.getMessage());
+      showAlert(AlertType.ERROR, e.getMessage());
     }
   }
 
-//kiem tra dinh dang email
+  //kiem tra dinh dang email
   private boolean isValidEmail(String email) {
     String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     return email.matches(emailRegex);
