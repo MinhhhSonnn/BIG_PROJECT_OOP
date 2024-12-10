@@ -159,6 +159,9 @@ public class detailBookUserController {
   private PreparedStatement prepareUpdate2;
   private ResultSet resultUpdate2;
 
+  private PreparedStatement prepareCheck;
+  private ResultSet resultCheck;
+
   public void borrowBook(){
     Alert alert;
     if (informationUserName.numberViolations > 3 || informationUserName.numberBorrowedBooks > 30){
@@ -170,11 +173,12 @@ public class detailBookUserController {
       return;
     }
 
-    String sql = "SELECT * FROM borrowedhistory WHERE ISBN = ? AND returnDate is null";
+    String sql = "SELECT * FROM borrowedhistory WHERE ISBN = ? AND returnDate is null AND userName = ?";
     connect = database.connectDB();
     try {
         prepareFind = connect.prepareStatement(sql);
         prepareFind.setString(1, book.getISBN());
+        prepareFind.setString(2, informationUserName.userName);
         resultFind = prepareFind.executeQuery();
         if(resultFind.next()){
           alert = new Alert(AlertType.ERROR);
@@ -184,6 +188,25 @@ public class detailBookUserController {
           alert.showAndWait();
           return;
         }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    sql = "SELECT * FROM books WHERE ISBN = ?";
+    try {
+      prepareCheck = connect.prepareStatement(sql);
+      prepareCheck.setString(1, book.getISBN());
+      resultCheck = prepareCheck.executeQuery();
+      resultCheck.next();
+      int quantity = resultCheck.getInt("quantity");
+      if (quantity == 0){
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Admin Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Đã hết sách");
+        alert.showAndWait();
+        return;
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
