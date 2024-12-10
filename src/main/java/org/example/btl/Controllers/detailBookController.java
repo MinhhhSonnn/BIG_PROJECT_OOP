@@ -1,5 +1,6 @@
 package org.example.btl.Controllers;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -209,7 +210,10 @@ public class detailBookController {
         prepareFind.setString(1, book.getISBN());
         resultFind = prepareFind.executeQuery();
         resultFind.next();
-        Image image = new Image(resultFind.getString("linkQR"));
+        String qrPath = resultFind.getString("linkQR");
+        File file = new File(qrPath);
+        String imageUrl = file.toURI().toString();
+        Image image = new Image(imageUrl);
         imageBookImageView.setImage(image);
       } catch (Exception e) {
         e.printStackTrace();

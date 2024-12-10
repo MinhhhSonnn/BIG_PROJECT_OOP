@@ -250,7 +250,7 @@ public class addBookController {
           sql = "INSERT INTO qr (ISBN, linkQR) VALUES (?, ?)";
           prepareAddQR = connect.prepareStatement(sql);
           prepareAddQR.setString(1, ISBNTextField.getText());
-          prepareAddQR.setString(2, "D:\\LIBRARY\\QrCodePNG\\" + ISBNTextField.getText() + ".png");
+          prepareAddQR.setString(2, "D:/LIBRARY/QrCodePNG/" + ISBNTextField.getText() + ".png");
           prepareAddQR.executeUpdate();
         }
       } catch (Exception e) {
@@ -344,7 +344,7 @@ public class addBookController {
           Book book = new Book(resultChange.getString("bookName"), resultChange.getString("author"), resultChange.getString("ISBN"), resultChange.getInt("quantity"),
               resultChange.getString("description"), resultChange.getString("imageUrl"), resultChange.getString("publicationYear"), resultChange.getString("category"));
 
-          File file = new File("D:\\subject\\oop\\BTL\\QrCodePNG\\" + book.getISBN() + ".png");
+          File file = new File("D:/LIBRARY/QrCodePNG/" + book.getISBN() + ".png");
           file.delete();
           book.generateQRCode(book.getISBN() + ".png");
 
@@ -422,7 +422,7 @@ public class addBookController {
           e.printStackTrace();
         }
 
-        File file = new File("D:\\LIBRARY\\QrCodePNG\\" + ISBNOldTextField.getText() + ".png");
+        File file = new File("D:/LIBRARY/QrCodePNG/" + ISBNOldTextField.getText() + ".png");
         file.delete();
 
       } else {

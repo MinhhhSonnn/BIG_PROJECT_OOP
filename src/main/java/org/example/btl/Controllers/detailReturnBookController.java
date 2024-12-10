@@ -1,5 +1,6 @@
 package org.example.btl.Controllers;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -254,7 +255,12 @@ public class detailReturnBookController {
         prepareFind2.setString(1, book.getISBN());
         resultFind2 = prepareFind2.executeQuery();
         resultFind2.next();
-        Image image = new Image(resultFind2.getString("linkQR"));
+        String qrPath = resultFind2.getString("linkQR");
+        // Chuyển đổi đường dẫn local thành URL
+        File file = new File(qrPath);
+        String imageUrl = file.toURI().toURL().toString();
+
+        Image image = new Image(imageUrl);
         imageBookImageView.setImage(image);
       } catch (Exception e) {
         e.printStackTrace();
