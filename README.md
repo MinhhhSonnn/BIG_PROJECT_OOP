@@ -34,14 +34,14 @@ Dự án được thực hiện với mục tiêu mô phỏng một hệ thống
 
 ---
 
-### 👥 3. Quản lý người dùng
+### 3. Quản lý người dùng
 - Xem danh sách độc giả
 - Quản lý tài khoản quản lý
 - Theo dõi lịch sử mượn sách
 
 ---
 
-### 📖 4. Chức năng dành cho độc giả
+### 4. Chức năng dành cho độc giả
 - Xem danh sách sách có sẵn
 - Xem chi tiết sách
 - Mượn sách
